@@ -1,0 +1,24 @@
+.swg-output {
+    font-family: monospace;
+    white-space: nowrap;
+
+}
+.swg-output__property {
+    color: purple;
+}
+.swg-output__array,
+.swg-output__object {
+    padding-left: 20px;
+}
+.swg-output__string {
+    color: red;
+}
+.swg-output--boolean {
+    color: darkblue;
+}
+.swg-output--number {
+    color: darkblue;
+}
+.swg-output--undefined {
+    color: gray;
+}

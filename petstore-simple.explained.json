@@ -1,0 +1,6 @@
+{
+    "info": {
+        "description": "The Info Object",
+        "annotation": "@SWG\\Info"
+    }
+}
