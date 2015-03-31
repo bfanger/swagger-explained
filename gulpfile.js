@@ -11,6 +11,7 @@ gulp.task('css', function() {
 
 gulp.task('bundle-libs', function() {
     return gulp.src([
+        'bower_components/jquery/dist/jquery.min.js',
         'bower_components/angular/angular.min.js'
     ])
     .pipe(noprotocol.bundle('libs.bundle.js'))

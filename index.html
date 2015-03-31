@@ -4,12 +4,12 @@
         <title>Swagger Explained</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
         <link href="dist/main.css" rel="stylesheet" type="text/css"/>
     </head>
     <body ng-app="app">
-        <div style="float: left; width:50%;overflow-x: scroll">
-            <swg-output value="swagger"></swg-output>
-        </div>
+        <h1>swagger.json</h1>
+        <swg-output class="swg-output-container" value="swagger"></swg-output>
         <div style="float: right; width:50%">{{explained}}</div>
         <script src="dist/libs.bundle.js" type="text/javascript"></script>
         <script src="dist/app.min.js" type="text/javascript"></script>

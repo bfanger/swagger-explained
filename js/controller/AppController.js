@@ -5,15 +5,16 @@ app.run(function ($rootScope, $http, $q, $parse) {
     ]).then(function (responses) {
         // augment data
         var swagger = responses[0].data;
-        var explained = responses[1].data;
-        for (var path in explained) {
-            var node = $parse(path)(swagger);
-            node._explained = explained[path];
-        }
+        var explainations = responses[1].data;
+        explainations.forEach(function (explained) {
+            var node = (explained.path === '$root') ? swagger : $parse(explained.path)(swagger);
+            node._explained = explained;
+        });
         $rootScope.swagger = swagger;
-        console.log(swagger);
+        $rootScope.explainations = explainations;
+//        console.log(swagger);
     });
-    $rootScope.$on('swgOutputHover', function (e, explained) {
+    $rootScope.$on('swgOutputSelectionChanged', function (event, explained) {
         $rootScope.explained = explained;
     });
 

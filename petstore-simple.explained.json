@@ -1,6 +1,17 @@
-{
-    "info": {
-        "description": "The Info Object",
+[
+    {
+        "path": "$root",
+        "title": "The Swagger Object",
+        "annotation": "@SWG\\Swagger"
+    },
+    {
+        "path": "info",
+        "title": "The Info Object",
         "annotation": "@SWG\\Info"
+    },
+    {
+        "path": "info.contact",
+        "title": "The Contact Object",
+        "annotation": "@SWG\\Contact"
     }
-}
+]

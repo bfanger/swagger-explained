@@ -1,4 +1,4 @@
-app.directive('swgOutput', function ($compile) {
+app.directive('swgOutput', function ($compile, swgOutputSelection) {
     return {
         template: [
             '<span ng-switch="type" ng-class="[\'swg-output\', \'swg-output--\' + type]">',
@@ -7,9 +7,9 @@ app.directive('swgOutput', function ($compile) {
             '<span ng-switch-when="boolean">{{value}}</span>',
             '<span ng-switch-when="undefined">undefined</span>',
             '<span ng-switch-when="object">{',
-            '  <div class="swg-output__object" ng-class="{\'swg-output__hover\':explained}" ng-mouseenter="mouseenter(explained)">',
-            '    <div ng-repeat="property in properties">',
-            '      <span class="swg-output__property">{{property.name}}</span>:',
+            '  <div class="swg-output__object">',
+            '    <div ng-repeat="property in properties" ng-class="{\'swg-output__hover\': property.explained, \'swg-output--active\': property.explained == explained}">',
+            '      "<span class="swg-output__property">{{property.name}}</span>"<span class="swg-output__double-colon">:</span>',
             '      <swg-output value="property.value"></swg-output><span ng-if="!$last">,</span>',
             '    </div>',
             '  </div>',
@@ -43,25 +43,42 @@ app.directive('swgOutput', function ($compile) {
                     $scope.$watch('value', function (value) {
                         $scope.type = angular.isArray(value) ? 'array' : typeof value;
                         $scope.properties = [];
-                        $scope.explained = null;
                         if ($scope.type === 'object') {
                             for (var property in value) {
-                                if (property === '_explained') {
-                                    $scope.explained = value[property];
-                                } else {
+                                if (property !== '_explained') {
                                     $scope.properties.push({
                                         name: property,
                                         value: value[property]
                                     });
                                 }
                             }
+                            $scope.properties.forEach(function (property) {
+                                if (typeof property.value === 'object' && property.value._explained) {
+                                    property.explained = property.value._explained;
+                                }
+                            });
+                            
                         }
                     });
-                    $scope.mouseenter = function (explained) {
-                        if (explained) {
-                            $scope.$emit('swgOutputHover', explained);
-                        };
-                    }
+                    element.bind('mousemove', function (e) {
+                        var targetEl = $(e.target);
+                        if (targetEl.hasClass('swg-output__hover')) {
+                            if (swgOutputSelection.set(targetEl.scope().property.explained)) {
+                                $scope.$apply();
+                            }
+                        } else {
+                            var parents = targetEl.parents('.swg-output__hover');
+                            if (parents.length) {
+                                if (swgOutputSelection.set($([parents[0]]).scope().property.explained)) {
+                                    $scope.$apply();
+                                }
+                            }
+                        }
+                    });
+                    $scope.explained = swgOutputSelection.get(); 
+                    $scope.$on('swgOutputSelectionChanged', function (event, explained) {
+                        $scope.explained = explained;
+                    });
                 }
             };
         }
