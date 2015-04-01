@@ -7,10 +7,22 @@
         <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
         <link href="dist/main.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body ng-app="app">
-        <h1>swagger.json</h1>
-        <swg-output class="swg-output-container" value="swagger"></swg-output>
-        <div style="float: right; width:50%">{{explained}}</div>
+    <body ng-app="app" class="page">
+        <div class="page__header">swagger<span style="color: gray">.json</span></div>
+        <div class="page__content" ng-controller="SwaggerExplainedController">
+            <swg-output class="page__content__left swg-output-container" value="swagger"></swg-output>
+            <div class="page__content__right">
+                <div ng-if="!explained">
+                    Hover over the json on the left for detailed information.
+                </div>
+                <div ng-if="explained">
+                    <p ng-if="explained.annotation" >
+                        <a href="https://github.com/zircote/swagger-php" target="_blank">Swagger-PHP</a> annotation: <strong>{{explained.annotation}}</strong>
+                    </p>
+                    <div marked="spec[explained.spec]" class="spec"></div>
+                </div>
+            </div>
+        </div>
         <script src="dist/libs.bundle.js" type="text/javascript"></script>
         <script src="dist/app.min.js" type="text/javascript"></script>
     </body>

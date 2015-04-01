@@ -1,10 +1,4 @@
 .swg-output-container {
-    display: block;
-    float: left;
-    width: 50%;
-    height: 100vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
     background: #272822;
     color: #f8f8f2;
 }
@@ -19,9 +13,8 @@
 .swg-output__double-colon {
     color: #f92772;
 }
-.swg-output__array,
-.swg-output__object {
-    padding-left: 20px;
+.swg-output__indent {
+    padding-left: 1.2em;
 }
 .swg-output__string {
     color: #e6db74;
@@ -37,10 +30,12 @@
 }
 
 .swg-output__hover {
-    background: rgba(white, 0.05);
+    background: rgba(white, 0.08);
+    outline: 1px solid rgba(black, 0.08);
     cursor: help;
-    
 }
 .swg-output--active {
-    background: rgba(white, 0.25);
+    background: #342848;
+    outline: 1px dotted rgba(white, 0.4);
+    cursor: help;
 }

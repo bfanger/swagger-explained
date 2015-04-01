@@ -12,7 +12,9 @@ gulp.task('css', function() {
 gulp.task('bundle-libs', function() {
     return gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/angular/angular.min.js'
+        'bower_components/angular/angular.min.js',
+        'bower_components/marked/marked.min.js',
+        'bower_components/angular-marked/angular-marked.min.js'
     ])
     .pipe(noprotocol.bundle('libs.bundle.js'))
     .on('error', noprotocol.notify)
@@ -23,11 +25,11 @@ gulp.task('bundle-app', function () {
     return gulp
         .src([
             'js/**/*.js',
-            'views/**/*.html', 
+            'views/**/*.html',
             'js/directives/**/*.html'
         ])
-        .pipe(noprotocol.angular({ 
-            deps: []
+        .pipe(noprotocol.angular({
+            deps: ['hc.marked']
         }))
         .on('error', noprotocol.notify)
         .pipe(gulp.dest('dist'));
@@ -41,6 +43,7 @@ gulp.task('watch', ['css', 'bundle-app', 'bundle-libs'], function() {
     gulp.watch([
         'dist/*.css',
         'dist/*.js',
+        '*.json',
         'index.html'
     ]).on('change', livereload.changed);
 });

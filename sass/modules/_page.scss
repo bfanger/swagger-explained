@@ -1,0 +1,35 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+        
+}
+.page__header {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+}
+.page__content {
+    flex: 1;
+    position: relative;
+}
+.page__content__left {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: calc(40% - 10px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.page__content__right {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    width: calc(60% - 20px);
+    overflow: scroll;
+}

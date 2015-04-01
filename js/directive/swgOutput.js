@@ -1,4 +1,23 @@
 app.directive('swgOutput', function ($compile, swgOutputSelection) {
+    /**
+     * 
+     * @param {Scope} $scope
+     * @returns {Object} explained
+     */
+    function extractExplained($scope) {
+        if ($scope.property && typeof $scope.property.value === 'object' && $scope.property.value._explained) {
+            return $scope.property.value._explained;
+        }
+        if (typeof $scope.item === 'object' && $scope.item._explained) {
+            return $scope.item._explained;
+        }
+        if (typeof $scope.value === 'object' && $scope.value._explained) {
+            return $scope.value._explained;
+        }
+        if ($scope.$parent) {
+            return extractExplained($scope.$parent);
+        }
+    }
     return {
         template: [
             '<span ng-switch="type" ng-class="[\'swg-output\', \'swg-output--\' + type]">',
@@ -7,16 +26,16 @@ app.directive('swgOutput', function ($compile, swgOutputSelection) {
             '<span ng-switch-when="boolean">{{value}}</span>',
             '<span ng-switch-when="undefined">undefined</span>',
             '<span ng-switch-when="object">{',
-            '  <div class="swg-output__object">',
-            '    <div ng-repeat="property in properties" ng-class="{\'swg-output__hover\': property.explained, \'swg-output--active\': property.explained == explained}">',
+            '  <div class="swg-output__indent">',
+            '    <div ng-repeat="property in properties" ng-class="[hoverClass(property.value._explained)]">',
             '      "<span class="swg-output__property">{{property.name}}</span>"<span class="swg-output__double-colon">:</span>',
-            '      <swg-output value="property.value"></swg-output><span ng-if="!$last">,</span>',
+            '      <swg-output value="property.value" as-property="true"></swg-output><span ng-if="!$last">,</span>',
             '    </div>',
             '  </div>',
             '}</span>',
             '<span ng-switch-when="array">[',
-            '  <div class="swg-output__array">',
-            '    <div ng-repeat="item in value track by $index">',
+            '  <div class="swg-output__indent">',
+            '    <div ng-repeat="item in value track by $index" ng-class="[hoverClass(item._explained)]">',
             '      <swg-output value="item"></swg-output><span ng-if="!$last">,</span>',
             '    </div>',
             '  </div>',
@@ -25,7 +44,8 @@ app.directive('swgOutput', function ($compile, swgOutputSelection) {
             '</span>'
         ].join(''),
         scope: {
-            value: '='
+            value: '=',
+            asProperty: '='
         },
         compile: function (element) {
             var contents = element.contents().remove();
@@ -52,34 +72,25 @@ app.directive('swgOutput', function ($compile, swgOutputSelection) {
                                     });
                                 }
                             }
-                            $scope.properties.forEach(function (property) {
-                                if (typeof property.value === 'object' && property.value._explained) {
-                                    property.explained = property.value._explained;
-                                }
-                            });
-                            
                         }
                     });
+
                     element.bind('mousemove', function (e) {
-                        var targetEl = $(e.target);
-                        if (targetEl.hasClass('swg-output__hover')) {
-                            if (swgOutputSelection.set(targetEl.scope().property.explained)) {
-                                $scope.$apply();
-                            }
-                        } else {
-                            var parents = targetEl.parents('.swg-output__hover');
-                            if (parents.length) {
-                                if (swgOutputSelection.set($([parents[0]]).scope().property.explained)) {
-                                    $scope.$apply();
-                                }
-                            }
+                        var explained = extractExplained($(e.target).scope());
+                        if (explained && swgOutputSelection.set(explained)) {
+                            $scope.$apply();
                         }
                     });
-                    $scope.explained = swgOutputSelection.get(); 
-                    $scope.$on('swgOutputSelectionChanged', function (event, explained) {
-                        $scope.explained = explained;
-                    });
+                    $scope.hoverClass = function (explained) {
+                        if (explained) {
+                            if (explained === swgOutputSelection.get()) {
+                                return 'swg-output--active';
+                            }
+                            return 'swg-output__hover';
+                        }
+                    };
                 }
+
             };
         }
     };
