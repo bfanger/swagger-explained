@@ -1,4 +1,7 @@
 app.controller('SwaggerExplainedController', function ($scope, $http, swgOutputSelection, $location) {
+    
+    $scope.url = $location.search().url || 'https://cdn.rawgit.com/swagger-api/swagger-spec/master/examples/v2.0/json/petstore-simple.json';
+
     var method2annotation = {
         get: "@SWG\\Get",
         post: "@SWG\\Post",
@@ -55,87 +58,92 @@ app.controller('SwaggerExplainedController', function ($scope, $http, swgOutputS
             return;
         }
     }
-    $http.get('petstore-simple.json').success(function (swagger) {
-        // augment data with explanations
-        swagger._explained = {
-            annotation: "@SWG\\Swagger",
-            spec: "swaggerObject"
-        };
-        if (swagger.info) {
-            swagger.info._explained = {
-                annotation: "@SWG\\Info",
-                spec: "infoObject"
+    $scope.$watch('url', function (url) {
+        $scope.swagger = "Loading...";
+        $http.get(url).success(function (swagger) {
+            // augment data with explanations
+            swagger._explained = {
+                annotation: "@SWG\\Swagger",
+                spec: "swaggerObject"
             };
-            if (swagger.info.contact) {
-                swagger.info.contact._explained = {
-                    annotation: "@SWG\\Contact",
-                    spec: "contactObject"
+            if (swagger.info) {
+                swagger.info._explained = {
+                    annotation: "@SWG\\Info",
+                    spec: "infoObject"
                 };
-            }
-            if (swagger.info.license) {
-                swagger.info.license._explained = {
-                    annotation: "@SWG\\License",
-                    spec: "licenseObject"
-                };
-            }
-        }
-        if (swagger.paths) {
-            for (var path in swagger.paths) {
-                var pathItem = swagger.paths[path];
-                pathItem._explained = {
-                    annotation: "@SWG\\Path",
-                    spec: "pathItemObject"
-                };
-
-                for (var method in pathItem) {
-                    var operation = pathItem[method];
-                    operation._explained = {
-                        spec: "operationObject",
-                        annotation: method2annotation[method]
+                if (swagger.info.contact) {
+                    swagger.info.contact._explained = {
+                        annotation: "@SWG\\Contact",
+                        spec: "contactObject"
                     };
-                    if (operation.parameters) {
-                        for (var i in operation.parameters) {
-                            var parameter = operation.parameters[i];
-                            parameter._explained = {
-                                spec: 'parameterObject',
-                                annotation: '@SWG\\Parameter'
-                            };
-                            explainJsonSpec(parameter);
-                        }
-                    }
-                    if (operation.responses) {
-                        for (var j in operation.responses) {
-                            var response =operation.responses[j];
-                            response._explained = {
-                                spec: 'responseObject',
-                                annotation: '@SWG\\Response'
-                            };
-                            explainJsonSpec(response);
-                        }
-                        operation.responses._explained = {
-                            spec: "responsesObject"
-                        };
-                    }
+                }
+                if (swagger.info.license) {
+                    swagger.info.license._explained = {
+                        annotation: "@SWG\\License",
+                        spec: "licenseObject"
+                    };
                 }
             }
-            swagger.paths._explained = {
-                spec: "pathsObject"
-            };
-        }
-        if (swagger.definitions) {
-            for (var name in swagger.definitions) {
-                var definition = swagger.definitions[name];
-                definition._explained = {
-                    spec: "schemaObject",
-                    annotation: "@SWG\\Definition"
+            if (swagger.paths) {
+                for (var path in swagger.paths) {
+                    var pathItem = swagger.paths[path];
+                    pathItem._explained = {
+                        annotation: "@SWG\\Path",
+                        spec: "pathItemObject"
+                    };
+
+                    for (var method in pathItem) {
+                        var operation = pathItem[method];
+                        operation._explained = {
+                            spec: "operationObject",
+                            annotation: method2annotation[method]
+                        };
+                        if (operation.parameters) {
+                            for (var i in operation.parameters) {
+                                var parameter = operation.parameters[i];
+                                parameter._explained = {
+                                    spec: 'parameterObject',
+                                    annotation: '@SWG\\Parameter'
+                                };
+                                explainJsonSpec(parameter);
+                            }
+                        }
+                        if (operation.responses) {
+                            for (var j in operation.responses) {
+                                var response =operation.responses[j];
+                                response._explained = {
+                                    spec: 'responseObject',
+                                    annotation: '@SWG\\Response'
+                                };
+                                explainJsonSpec(response);
+                            }
+                            operation.responses._explained = {
+                                spec: "responsesObject"
+                            };
+                        }
+                    }
+                }
+                swagger.paths._explained = {
+                    spec: "pathsObject"
                 };
-                explainJsonSpec(definition);
             }
-            swagger.definitions._explained = {
-                spec: "definitionsObject"
-            };
-        }
-        $scope.swagger = swagger;
+            if (swagger.definitions) {
+                for (var name in swagger.definitions) {
+                    var definition = swagger.definitions[name];
+                    definition._explained = {
+                        spec: "schemaObject",
+                        annotation: "@SWG\\Definition"
+                    };
+                    explainJsonSpec(definition);
+                }
+                swagger.definitions._explained = {
+                    spec: "definitionsObject"
+                };
+            }
+            $scope.swagger = swagger;
+        }).catch(function (response) {
+            $scope.swagger = {error: "Failed to load", url: url, status: response.status};
+        });
     });
     $http.get('swagger-spec.json').success(function (spec) {
         $scope.spec = spec;

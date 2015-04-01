@@ -8,9 +8,20 @@
         
 }
 .page__header {
+    color: #89bf04;
     font-weight: bold;
     font-size: 20px;
     padding: 10px;
+    
+    input {
+        padding: 6px;
+        width: 600px;
+        margin-left: 40px;
+        border: 1px solid #89bf04;
+        &:focus {
+            outline-color: #89bf04;
+        }
+    }
 }
 .page__content {
     flex: 1;
@@ -19,7 +30,7 @@
 .page__content__left {
     position: absolute;
     left: 10px;
-    top: 0;
+    top: 0px;
     bottom: 0;
     width: calc(40% - 10px);
     overflow-y: scroll;

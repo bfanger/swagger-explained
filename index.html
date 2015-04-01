@@ -4,12 +4,13 @@
         <title>Swagger Explained</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet' type='text/css'>
         <link href="dist/main.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body ng-app="app" class="page">
-        <div class="page__header">swagger<span style="color: gray">.json</span></div>
-        <div class="page__content" ng-controller="SwaggerExplainedController">
+    <body ng-app="app" class="page"  ng-controller="SwaggerExplainedController">
+        <form  class="page__header">swagger<span>.json</span> explained <input ng-model="url" ng-model-options="{ debounce: 2500 }" ></form>
+        <div class="page__content">
             <swg-output class="page__content__left swg-output-container" value="swagger"></swg-output>
             <div class="page__content__right">
                 <div ng-if="!explained">
