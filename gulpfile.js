@@ -6,7 +6,7 @@ gulp.task('css', function() {
     return gulp.src('sass/**/*.{scss,sass}')
         .pipe(noprotocol.css())
         .on('error', noprotocol.notify)
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('bundle-libs', function() {
@@ -18,7 +18,7 @@ gulp.task('bundle-libs', function() {
     ])
     .pipe(noprotocol.bundle('libs.bundle.js'))
     .on('error', noprotocol.notify)
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('build'));
 });
 
 gulp.task('bundle-app', function () {
@@ -32,7 +32,7 @@ gulp.task('bundle-app', function () {
             deps: ['hc.marked']
         }))
         .on('error', noprotocol.notify)
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('watch', ['css', 'bundle-app', 'bundle-libs'], function() {
@@ -41,8 +41,8 @@ gulp.task('watch', ['css', 'bundle-app', 'bundle-libs'], function() {
     gulp.watch('sass/**/*.{scss,sass}', ['css']);
     gulp.watch(['js/**/*.js', 'views/**/*.html'], ['bundle-app']);
     gulp.watch([
-        'dist/*.css',
-        'dist/*.js',
+        'build/*.css',
+        'build/*.js',
         '*.json',
         'index.html'
     ]).on('change', livereload.changed);
