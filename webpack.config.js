@@ -1,7 +1,12 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = {
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = (process.argv.indexOf('-p') === -1) ? 'development' : 'production'
+}
+
+const webpackConfig = {
   entry: {
     'swagger-explained': ['babel-plugin-transform-runtime', './src/bootstrap.js']
   },
@@ -31,9 +36,17 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
     new HtmlWebpackPlugin({
       title: 'Swagger Explained',
       favicon: './src/assets/favicon.ico'
     })
   ]
 }
+if (process.env.ANALYZE) {
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  webpackConfig.plugins.unshift(new BundleAnalyzerPlugin())
+}
+module.exports = webpackConfig

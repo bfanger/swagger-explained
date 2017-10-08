@@ -8,7 +8,7 @@
         <span v-if="hasNestedValues(value) === false &&index + 1 !== array.length">,</span>
       </div>
       <div v-if="hasNestedValues(value)">
-        <nested-json :json="value" @hover="$emit('hover', $event)" />
+        <nested-json :json="value" />
         <div>
           <span v-if="valueType(value) === 'object'">}</span>
           <span v-else>]</span>

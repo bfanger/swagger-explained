@@ -4,9 +4,11 @@
 
 <script>
 import Page from './Page'
+import store from '../services/store'
 
 export default {
-  components: { Page }
+  components: { Page },
+  store
 }
 </script>
 

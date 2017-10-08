@@ -1,5 +1,5 @@
 <template>
-  <div class="json-object" :class="{'json-object--explained': object._explained, 'json-object--hovering': hovering}" @mousemove="mousemove" @mouseleave="mouseleave">
+  <div class="json-object" :class="{'json-object--explained': object._explained, 'json-object--hovering': hovering}" @mousemove="mousemove" @mouseleave="mouseleave" @click="click">
     <div v-for="(property, index) in properties" :key="property">
       <div class="json-object__property">
         <span class="json-object__property-name">{{JSON.stringify(property)}}</span>
@@ -10,7 +10,7 @@
         <span v-if="hasNestedValues(property) === false &&index + 1 !== properties.length">,</span>
       </div>
       <div v-if="hasNestedValues(property)">
-        <nested-json :json="object[property]" @hover="hover" />
+        <nested-json :json="object[property]" />
         <div>
           <span v-if="propertyType(property) === 'object'">}</span>
           <span v-else>]</span>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import JsonValue from './JsonValue'
 export default {
   name: 'JsonObject',
@@ -38,6 +39,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setHover', 'setAnnotation']),
     propertyType (property) {
       const value = this.object[property]
       if (value === null) {
@@ -57,28 +59,43 @@ export default {
       }
       return false
     },
-    hover (explained) {
-      if (this.hovering) {
-        this.hovering = false
-      }
-      this.$emit('hover', explained)
-    },
     mousemove (e) {
-      let element = e.target
-      while (element) {
-        if (element.classList.contains('json-object')) {
-          if (element === this.$el && !this.hovering) {
-            this.hovering = true
-            this.$emit('hover', this.object._explained)
-          }
-          break
-        }
-        element = element.parentElement
+      if (!this.object._explained) {
+        return
+      }
+      this.hovering = this.eventForMe(e)
+      if (this.hovering) {
+        this.setHover({
+          ...this.object._explained,
+          top: (this.$el.offsetTop) + 'px',
+          left: (this.$el.offsetLeft) + 'px'
+        })
       }
     },
     mouseleave (e) {
       if (this.hovering) {
         this.hovering = false
+        this.setHover({})
+      }
+    },
+    click (e) {
+      if (this.object._explained && this.eventForMe(e)) {
+        window.location.hash = this.object._explained.specification
+        setTimeout(() => {
+          this.setAnnotation(this.object._explained.annotation)
+        })
+      }
+    },
+    eventForMe (e) {
+      let element = e.target
+      while (element) {
+        if (element.classList.contains('json-object')) {
+          if (element === this.$el) {
+            return true
+          }
+          return false
+        }
+        element = element.parentElement
       }
     }
   }
@@ -92,11 +109,10 @@ export default {
 
 .json-object--explained {
   background: rgba(#bbf, 0.05);
-  cursor: help;
+  cursor: pointer;
 }
 
 .json-object--hovering {
-  background: rgba(#fff, 0.07);
   outline: 1px dotted #ccc;
 }
 
@@ -111,15 +127,4 @@ export default {
 .json-object__double-colon {
   padding-right: .5em;
 }
-
-// // .json--hover {
-// //     background: rgba(white, 0.08);
-// //     outline: 1px solid rgba(black, 0.08);
-// //     cursor: help;
-// // }
-// // .json--active {
-// //     background: #342848;
-// //     outline: 1px dotted rgba(white, 0.4);
-// //     cursor: help;
-// }
 </style>

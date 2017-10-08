@@ -1,20 +1,41 @@
 <template>
-  <VueMarkdown class="wiki" :source="markdown" />
+  <div class="wiki" />
 </template>
 
 <script>
-import VueMarkdown from 'vue-markdown'
+import { mapState } from 'vuex'
+import marked from 'marked'
+import specifications from '../specifications'
+
+const markdown = specifications['swagger-v2'] // @todo detect version from json
+
 export default {
-  props: {
-    markdown: String
+  computed: mapState(['specification']),
+  mounted () {
+    this.renderMarkdown(this.specification)
   },
-  components: { VueMarkdown }
+  watch: {
+    specification (specification) {
+      this.renderMarkdown(specification)
+    }
+  },
+  methods: {
+    renderMarkdown (specification) {
+      if (markdown[specification]) {
+        this.$el.innerHTML = marked(markdown[specification], { gfm: true })
+      } else {
+        this.$el.innerHTML = ''
+      }
+    }
+  }
 }
 </script>
 <style lang="scss">
 .wiki {
   h4:first-child {
     margin-top: 0;
+    margin-bottom: 10px;
+
     a {
       text-decoration: none;
       font-size: 30px;
@@ -23,7 +44,7 @@ export default {
 
       &:hover {
         color: #1f69c0;
-        border-bottom: 1px solid #1f69c0;
+        text-decoration: underline;
       }
     }
   }
@@ -37,12 +58,12 @@ export default {
     padding: 3px 5px;
   }
   td {
-    padding: 3px 5px;
+    padding: 3px 5px 5px 3px;
   }
-  .language-yaml {
+  .lang-yaml {
     display: none;
   }
-  .language-js {
+  .lang-js {
     padding: 5px 7px;
     border-radius: 2px;
     display: block;

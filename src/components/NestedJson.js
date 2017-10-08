@@ -6,14 +6,9 @@ export default {
   props: ['json'],
   render (h) {
     if (Array.isArray(this.json)) {
-      return h(JsonArray, { props: { array: this.json }, on: { hover: this.hover }})
+      return h(JsonArray, { props: { array: this.json }})
     } else {
-      return h(JsonObject, { props: { object: this.json }, on: { hover: this.hover }})
-    }
-  },
-  methods: {
-    hover (explanation) {
-      this.$emit('hover', explanation)
+      return h(JsonObject, { props: { object: this.json }})
     }
   }
 }

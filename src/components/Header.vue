@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <a href="https://swagger.io/"><img class="header__logo" :src="logo"></a>
+    <a href="https://swagger.io/"><img class="header__logo" :src="logo" width="30" height="30"></a>
     <span class="header__title">Swagger Explained</span>
     <input class="header__input" :value="value" @keypress.enter="$emit('load');$event.target.blur()" @input="$emit('input', $event.target.value)">
     <button class="header__button" @click="$emit('load')">Explain</button>
