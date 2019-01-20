@@ -5,7 +5,10 @@
         <span v-if="valueType(value) === 'object'">{</span>
         <span v-else-if="valueType(value) === 'array'">[</span>
         <JsonValue v-else :value="value" />
-        <span v-if="hasNestedValues(value) === false &&index + 1 !== array.length">,</span>
+        <span
+          v-if="hasNestedValues(value) === false && index + 1 !== array.length"
+          >,</span
+        >
       </div>
       <div v-if="hasNestedValues(value)">
         <nested-json :json="value" />
@@ -20,35 +23,35 @@
 </template>
 
 <script>
-import JsonValue from './JsonValue'
+import JsonValue from "./JsonValue.vue";
 
 export default {
-  name: 'JsonArray',
-  props: {
-    array: Array
-  },
+  name: "JsonArray",
   components: { JsonValue },
+  props: {
+    array: { type: Array, required: true }
+  },
   methods: {
-    valueType (value) {
+    valueType(value) {
       if (value === null) {
-        return 'null'
+        return "null";
       }
       if (Array.isArray(value)) {
-        return 'array'
+        return "array";
       }
-      return typeof value
+      return typeof value;
     },
-    hasNestedValues (value) {
+    hasNestedValues(value) {
       if (value === null) {
-        return false
+        return false;
       }
-      if (typeof value === 'object') {
-        return true
+      if (typeof value === "object") {
+        return true;
       }
-      return false
+      return false;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">

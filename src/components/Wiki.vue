@@ -3,32 +3,32 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import marked from 'marked'
-import specifications from '../specifications'
+import { mapState } from "vuex";
+import marked from "marked";
+import specifications from "../specifications";
 
-const markdown = specifications['swagger-v2'] // @todo detect version from json
+const markdown = specifications["swagger-v2"]; // @todo detect version from json
 
 export default {
-  computed: mapState(['specification']),
-  mounted () {
-    this.renderMarkdown(this.specification)
-  },
+  computed: mapState(["specification"]),
   watch: {
-    specification (specification) {
-      this.renderMarkdown(specification)
+    specification(specification) {
+      this.renderMarkdown(specification);
     }
   },
+  mounted() {
+    this.renderMarkdown(this.specification);
+  },
   methods: {
-    renderMarkdown (specification) {
+    renderMarkdown(specification) {
       if (markdown[specification]) {
-        this.$el.innerHTML = marked(markdown[specification], { gfm: true })
+        this.$el.innerHTML = marked(markdown[specification], { gfm: true });
       } else {
-        this.$el.innerHTML = ''
+        this.$el.innerHTML = "";
       }
     }
   }
-}
+};
 </script>
 <style lang="scss">
 .wiki {
@@ -67,10 +67,11 @@ export default {
     padding: 5px 7px;
     border-radius: 2px;
     display: block;
-    background: #2B3A42;
+    background: #2b3a42;
     color: #a5cee1;
     font-size: 12px;
-    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
+      monospace;
   }
 }
 </style>

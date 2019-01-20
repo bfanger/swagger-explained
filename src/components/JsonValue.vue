@@ -1,13 +1,17 @@
 <template>
-  <span :class="'json-value--' + (typeof value)">{{JSON.stringify(value)}}</span>
+  <span :class="'json-value--' + typeof value">{{
+    JSON.stringify(value)
+  }}</span>
 </template>
 
 <script>
 // Color theme "Tomorrow Midnight"
 // https://github.com/chriskempson/tomorrow-theme
 export default {
-  props: ['value']
-}
+  props: {
+    value: { type: [String, Object, Number, Boolean], required: true }
+  }
+};
 </script>
 
 <style lang="scss">

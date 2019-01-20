@@ -1,8 +1,19 @@
 <template>
   <div class="header">
-    <a href="https://swagger.io/"><img class="header__logo" :src="logo" width="30" height="30"></a>
+    <a href="https://swagger.io/"
+      ><img class="header__logo" :src="logo" width="30" height="30"
+    /></a>
+
     <span class="header__title">Swagger Explained</span>
-    <input class="header__input" :value="value" @keypress.enter="$emit('load');$event.target.blur()" @input="$emit('input', $event.target.value)">
+    <input
+      class="header__input"
+      :value="value"
+      @keypress.enter="
+        $emit('load');
+        $event.target.blur();
+      "
+      @input="$emit('input', $event.target.value)"
+    />
     <button class="header__button" @click="$emit('load')">Explain</button>
   </div>
 </template>
@@ -10,12 +21,12 @@
 <script>
 export default {
   props: {
-    value: String
+    value: { type: String, required: true }
   },
   data: () => ({
-    logo: require('../assets/swagger-logo.png')
+    logo: require("../assets/swagger-logo.png")
   })
-}
+};
 </script>
 
 <style lang="scss">
@@ -32,7 +43,7 @@ export default {
 }
 
 .header__title {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   white-space: nowrap;
   font-size: 17.5px;
   line-height: 30px;
@@ -49,7 +60,7 @@ export default {
   &:focus {
     outline: none;
     border-width: 2px;
-    &+button {
+    & + button {
       border-width: 2px;
     }
   }

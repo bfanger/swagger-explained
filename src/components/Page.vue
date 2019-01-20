@@ -8,19 +8,28 @@
         {
         <JsonObject :object="json" />
         }
-        <div class="page__tooltip" v-show="hover.specification" :style="{top: hover.top, left: hover.left}">
+        <div
+          v-show="hover.specification"
+          class="page__tooltip"
+          :style="{ top: hover.top, left: hover.left }"
+        >
           <div class="page__tooltip__body">
-            {{hover.specification}} - {{hover.annotation}}
+            {{ hover.specification }} - {{ hover.annotation }}
           </div>
         </div>
       </div>
-      <div class="page__right-pane" ref="rightPane">
+      <div ref="rightPane" class="page__right-pane">
         <div class="page__content">
           <p v-if="annotation">
-            <a href="https://github.com/zircote/swagger-php" target="_blank">Swagger-PHP</a> annotation:
-            <strong>{{annotation}}</strong>
+            <a href="https://github.com/zircote/swagger-php" target="_blank"
+              >Swagger-PHP</a
+            >
+            annotation:
+            <strong>{{ annotation }}</strong>
           </p>
-          <p v-else-if="!specification">Click the json to show more information.</p>
+          <p v-else-if="!specification">
+            Click the json to show more information.
+          </p>
           <Wiki />
         </div>
       </div>
@@ -29,39 +38,40 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import SwaggerHeader from './Header'
-import JsonObject from './JsonObject'
-import Wiki from './Wiki'
-import fetchSwaggerJson from '../services/fetchSwaggerJson'
+import { mapState } from "vuex";
+import SwaggerHeader from "./Header.vue";
+import JsonObject from "./JsonObject.vue";
+import Wiki from "./Wiki.vue";
+import fetchSwaggerJson from "../services/fetchSwaggerJson";
 
 export default {
   components: { SwaggerHeader, JsonObject, Wiki },
   data: () => ({
-    url: 'https://cdn.rawgit.com/OAI/OpenAPI-Specification/master/examples/v2.0/json/petstore-simple.json',
+    url:
+      "https://cdn.rawgit.com/OAI/OpenAPI-Specification/master/examples/v2.0/json/petstore-simple.json",
     json: {},
     markdown: {}
   }),
-  computed: mapState(['annotation', 'specification', 'hover']),
+  computed: mapState(["annotation", "specification", "hover"]),
   watch: {
-    specification () {
-      this.$refs.rightPane.scrollTop = 0
+    specification() {
+      this.$refs.rightPane.scrollTop = 0;
     }
   },
-  beforeMount () {
-    this.load(this.url)
+  beforeMount() {
+    this.load(this.url);
   },
   methods: {
-    async load () {
-      this.json = { status: 'Loading...' }
+    async load() {
+      this.json = { status: "Loading..." };
       try {
-        this.json = await fetchSwaggerJson(this.url)
+        this.json = await fetchSwaggerJson(this.url);
       } catch (err) {
-        this.json = { error: err.message }
+        this.json = { error: err.message };
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -92,10 +102,11 @@ export default {
   background: #2d2d2d;
   color: #cccccc;
   font-size: 10px;
-  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
+    monospace;
   white-space: nowrap;
   padding: 4px 0 10px 3px;
-  max-width: 800px
+  max-width: 800px;
 }
 
 .page__right-pane {
