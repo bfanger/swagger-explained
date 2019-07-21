@@ -7,8 +7,7 @@ export default {
   render(h) {
     if (Array.isArray(this.json)) {
       return h(JsonArray, { props: { array: this.json } });
-    } else {
-      return h(JsonObject, { props: { object: this.json } });
     }
+    return h(JsonObject, { props: { object: this.json } });
   }
 };
