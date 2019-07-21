@@ -1,14 +1,14 @@
 {
   "name": "swagger-explained",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Browse the swagger specification visually via the json",
   "main": "index.js",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --modern ",
     "test": "eslint --ext .js,.vue src"
   },
-  "author": "",
+  "author": "Bob Fanger <bfanger@gmail.com>",
   "license": "MIT",
   "babel": {
     "presets": [

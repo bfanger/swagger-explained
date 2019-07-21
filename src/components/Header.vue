@@ -1,8 +1,13 @@
 <template>
   <div class="header">
-    <a href="https://swagger.io/"
-      ><img class="header__logo" :src="logo" width="30" height="30"
-    /></a>
+    <a href="https://swagger.io/">
+      <img
+        class="header__logo"
+        src="../assets/swagger-logo.png"
+        width="30"
+        height="30"
+      />
+    </a>
 
     <span class="header__title">Swagger Explained</span>
     <input
@@ -22,10 +27,7 @@
 export default {
   props: {
     value: { type: String, required: true }
-  },
-  data: () => ({
-    logo: require("../assets/swagger-logo.png")
-  })
+  }
 };
 </script>
 

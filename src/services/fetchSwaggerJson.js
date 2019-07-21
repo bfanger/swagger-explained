@@ -1,4 +1,9 @@
 export default async function fetchSwaggerJson(url) {
+  const match = url.match(/^https:\/\/github.com\/(.+)\/blob\/(.+)$/);
+  if (match) {
+    // Convert Github urls to raw urls (Prevents CORS errors)
+    url = `https://raw.githubusercontent.com/${match[1]}/${match[2]}`;
+  }
   const swagger = await (await window.fetch(url)).json();
   augment(swagger);
   return swagger;

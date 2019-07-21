@@ -43,15 +43,23 @@ import SwaggerHeader from "./Header.vue";
 import JsonObject from "./JsonObject.vue";
 import Wiki from "./Wiki.vue";
 import fetchSwaggerJson from "../services/fetchSwaggerJson";
+const exampleUrl =
+  "https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v2.0/json/petstore-simple.json";
 
 export default {
   components: { SwaggerHeader, JsonObject, Wiki },
-  data: () => ({
-    url:
-      "https://cdn.rawgit.com/OAI/OpenAPI-Specification/master/examples/v2.0/json/petstore-simple.json",
-    json: {},
-    markdown: {}
-  }),
+  data() {
+    let url = exampleUrl;
+    const match = location.search.match(/[?&]url=([^&]+[&]?)/);
+    if (match) {
+      url = decodeURIComponent(match[1]);
+    }
+    return {
+      url,
+      json: {},
+      markdown: {}
+    };
+  },
   computed: mapState(["annotation", "specification", "hover"]),
   watch: {
     specification() {
@@ -65,7 +73,15 @@ export default {
     async load() {
       this.json = { status: "Loading..." };
       try {
-        this.json = await fetchSwaggerJson(this.url);
+        const url = this.url;
+        this.json = await fetchSwaggerJson(url);
+        if (this.url === url && url !== exampleUrl) {
+          history.pushState(
+            null,
+            "Swagger Explained",
+            "?url=" + encodeURIComponent(url) + location.hash
+          );
+        }
       } catch (err) {
         this.json = { error: err.message };
       }
