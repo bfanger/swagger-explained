@@ -1,13 +1,14 @@
 {
   "name": "swagger-explained",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Browse the swagger specification visually via the json",
   "main": "index.js",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build --modern ",
+    "build": "vue-cli-service build --modern",
     "test": "npm run lint",
-    "lint": "eslint --max-warnings 0 --ext .js,.vue src "
+    "lint": "eslint --max-warnings 0 --ext .js,.vue src",
+    "deploy": "vue-cli-service build --modern && push-dir --dir dist --branch gh-pages"
   },
   "author": "Bob Fanger <bfanger@gmail.com>",
   "license": "MIT",
@@ -43,6 +44,7 @@
     "marked": "^1.0.0",
     "node-sass": "^4.14.0",
     "prettier": "^2.0.5",
+    "push-dir": "^0.4.1",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
