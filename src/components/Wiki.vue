@@ -14,7 +14,7 @@ export default {
   watch: {
     specification(specification) {
       this.renderMarkdown(specification);
-    }
+    },
   },
   mounted() {
     this.renderMarkdown(this.specification);
@@ -26,8 +26,8 @@ export default {
       } else {
         this.$el.innerHTML = "";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">

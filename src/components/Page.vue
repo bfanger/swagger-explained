@@ -57,14 +57,14 @@ export default {
     return {
       url,
       json: {},
-      markdown: {}
+      markdown: {},
     };
   },
   computed: mapState(["annotation", "specification", "hover"]),
   watch: {
     specification() {
       this.$refs.rightPane.scrollTop = 0;
-    }
+    },
   },
   beforeMount() {
     this.load(this.url);
@@ -85,8 +85,8 @@ export default {
       } catch (err) {
         this.json = { error: err.message };
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

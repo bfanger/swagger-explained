@@ -13,13 +13,13 @@ const type2annotation = {
   parameter: "@SWG\\Parameter",
   response: "@SWG\\Response",
   schema: "@SWG\\Schema",
-  header: "@SWG\\Header"
+  header: "@SWG\\Header",
 };
 const store = new Vuex.Store({
   state: {
     specification: "",
     annotation: "",
-    hover: {}
+    hover: {},
   },
   mutations: {
     setSpecification(state, specification) {
@@ -35,8 +35,8 @@ const store = new Vuex.Store({
     },
     setHover(state, explained) {
       state.hover = explained;
-    }
-  }
+    },
+  },
 });
 window.addEventListener("hashchange", () => {
   store.commit("setSpecification", window.location.hash.substr(1));

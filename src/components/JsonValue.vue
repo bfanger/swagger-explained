@@ -9,8 +9,8 @@
 // https://github.com/chriskempson/tomorrow-theme
 export default {
   props: {
-    value: { type: [String, Object, Number, Boolean], required: true }
-  }
+    value: { type: [String, Object, Number, Boolean], required: true },
+  },
 };
 </script>
 

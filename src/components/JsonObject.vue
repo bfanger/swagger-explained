@@ -3,7 +3,7 @@
     class="json-object"
     :class="{
       'json-object--explained': object._explained,
-      'json-object--hovering': hovering
+      'json-object--hovering': hovering,
     }"
     @mousemove="mousemove"
     @mouseleave="mouseleave"
@@ -21,7 +21,7 @@
         <span
           v-if="
             hasNestedValues(property) === false &&
-              index + 1 !== properties.length
+            index + 1 !== properties.length
           "
           >,</span
         >
@@ -45,17 +45,17 @@ export default {
   name: "JsonObject",
   components: { JsonValue },
   props: {
-    object: { type: Object, required: true }
+    object: { type: Object, required: true },
   },
   data: () => ({
-    hovering: false
+    hovering: false,
   }),
   computed: {
     properties() {
       return Object.keys(this.object).filter(
-        property => property !== "_explained"
+        (property) => property !== "_explained"
       );
-    }
+    },
   },
   methods: {
     ...mapMutations(["setHover", "setAnnotation"]),
@@ -87,7 +87,7 @@ export default {
         this.setHover({
           ...this.object._explained,
           top: this.$el.offsetTop + "px",
-          left: this.$el.offsetLeft + "px"
+          left: this.$el.offsetLeft + "px",
         });
       }
     },
@@ -116,8 +116,8 @@ export default {
         }
         element = element.parentElement;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

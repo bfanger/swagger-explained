@@ -8,7 +8,7 @@ import store from "../services/store";
 
 export default {
   components: { Page },
-  store
+  store,
 };
 </script>
 

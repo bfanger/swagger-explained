@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build --modern ",
-    "test": "eslint --ext .js,.vue src"
+    "test": "npm run lint",
+    "lint": "eslint --max-warnings 0 --ext .js,.vue src "
   },
   "author": "Bob Fanger <bfanger@gmail.com>",
   "license": "MIT",
@@ -29,23 +30,23 @@
     ]
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.2",
-    "@vue/cli-plugin-eslint": "^4.1.2",
-    "@vue/cli-service": "^4.1.2",
+    "@vue/cli-plugin-babel": "^4.3.1",
+    "@vue/cli-plugin-eslint": "^4.3.1",
+    "@vue/cli-service": "^4.3.1",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-esnext": "^4.0.0",
-    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-only-warn": "^1.0.2",
-    "eslint-plugin-vue": "^6.1.2",
-    "marked": "^0.8.0",
-    "node-sass": "^4.13.0",
-    "prettier": "^1.19.1",
-    "sass-loader": "^8.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "marked": "^1.0.0",
+    "node-sass": "^4.14.0",
+    "prettier": "^2.0.5",
+    "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-template-compiler": "^2.6.11",
-    "vuex": "^3.1.2"
+    "vuex": "^3.3.0"
   },
   "dependencies": {
     "eslint-plugin-prettier": "^3.1.2"

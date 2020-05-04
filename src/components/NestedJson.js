@@ -9,5 +9,5 @@ export default {
       return h(JsonArray, { props: { array: this.json } });
     }
     return h(JsonObject, { props: { object: this.json } });
-  }
+  },
 };

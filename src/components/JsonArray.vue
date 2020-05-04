@@ -29,7 +29,7 @@ export default {
   name: "JsonArray",
   components: { JsonValue },
   props: {
-    array: { type: Array, required: true }
+    array: { type: Array, required: true },
   },
   methods: {
     valueType(value) {
@@ -49,8 +49,8 @@ export default {
         return true;
       }
       return false;
-    }
-  }
+    },
+  },
 };
 </script>
 

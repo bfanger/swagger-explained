@@ -15,29 +15,29 @@ const method2annotation = {
   patch: "@SWG\\Patch",
   delete: "@SWG\\Delete",
   head: "@SWG\\Head",
-  options: "@SWG\\Options"
+  options: "@SWG\\Options",
 };
 function augment(swagger) {
   // augment data with explanations
   swagger._explained = {
     annotation: "@SWG\\Swagger",
-    specification: "swaggerObject"
+    specification: "swaggerObject",
   };
   if (swagger.info) {
     swagger.info._explained = {
       annotation: "@SWG\\Info",
-      specification: "infoObject"
+      specification: "infoObject",
     };
     if (swagger.info.contact) {
       swagger.info.contact._explained = {
         annotation: "@SWG\\Contact",
-        specification: "contactObject"
+        specification: "contactObject",
       };
     }
     if (swagger.info.license) {
       swagger.info.license._explained = {
         annotation: "@SWG\\License",
-        specification: "licenseObject"
+        specification: "licenseObject",
       };
     }
   }
@@ -45,20 +45,20 @@ function augment(swagger) {
     for (const pathItem of Object.values(swagger.paths)) {
       pathItem._explained = {
         annotation: "@SWG\\Path",
-        specification: "pathItemObject"
+        specification: "pathItemObject",
       };
 
       for (const method in pathItem) {
         const operation = pathItem[method];
         operation._explained = {
           specification: "operationObject",
-          annotation: method2annotation[method]
+          annotation: method2annotation[method],
         };
         if (operation.parameters) {
           for (const parameter of operation.parameters) {
             parameter._explained = {
               specification: "parameterObject",
-              annotation: "@SWG\\Parameter"
+              annotation: "@SWG\\Parameter",
             };
             explainJsonSpec(parameter, "parameter");
           }
@@ -67,39 +67,39 @@ function augment(swagger) {
           for (const response of Object.values(operation.responses)) {
             response._explained = {
               specification: "responseObject",
-              annotation: "@SWG\\Response"
+              annotation: "@SWG\\Response",
             };
             explainJsonSpec(response, "response");
             if (response.headers) {
               for (const header of Object.values(response.headers)) {
                 header._explained = {
                   specification: "headerObject",
-                  annotation: "@SWG\\Header"
+                  annotation: "@SWG\\Header",
                 };
                 explainJsonSpec(header, "header");
               }
             }
           }
           operation.responses._explained = {
-            specification: "responsesObject"
+            specification: "responsesObject",
           };
         }
       }
     }
     swagger.paths._explained = {
-      specification: "pathsObject"
+      specification: "pathsObject",
     };
   }
   if (swagger.definitions) {
     for (const definition of Object.values(swagger.definitions)) {
       definition._explained = {
         specification: "schemaObject",
-        annotation: "@SWG\\Definition"
+        annotation: "@SWG\\Definition",
       };
       explainJsonSpec(definition, "definition");
     }
     swagger.definitions._explained = {
-      specification: "definitionsObject"
+      specification: "definitionsObject",
     };
   }
   if (swagger.securityDefinitions) {
@@ -108,7 +108,7 @@ function augment(swagger) {
     )) {
       securityDefinition._explained = {
         annotation: "@SWG\\SecurityScheme",
-        specification: "securitySchemeObject"
+        specification: "securitySchemeObject",
       };
     }
   }
@@ -116,7 +116,7 @@ function augment(swagger) {
     for (const tag of swagger.tags) {
       tag._explained = {
         annotation: "@SWG\\Tag",
-        specification: "tagObject"
+        specification: "tagObject",
       };
     }
   }
@@ -127,13 +127,13 @@ function explainJsonSpec(object, type) {
     if ((type === "parameter" && object.in !== "body") || type === "header") {
       object.items._explained = {
         annotation: "@SWG\\Items",
-        specification: "itemsObject"
+        specification: "itemsObject",
       };
       explainJsonSpec(object.items, "items");
     } else {
       object.items._explained = {
         annotation: "@SWG\\Items",
-        specification: "schemaObject"
+        specification: "schemaObject",
       };
       explainJsonSpec(object.items, "items");
     }
@@ -141,7 +141,7 @@ function explainJsonSpec(object, type) {
   if (object.schema) {
     object.schema._explained = {
       annotation: "@SWG\\Schema",
-      specification: "schemaObject"
+      specification: "schemaObject",
     };
     explainJsonSpec(object.schema, "schema");
   }
@@ -149,7 +149,7 @@ function explainJsonSpec(object, type) {
     for (const property of Object.values(object.properties)) {
       property._explained = {
         annotation: "@SWG\\Property",
-        specification: "schemaObject"
+        specification: "schemaObject",
       };
       explainJsonSpec(property, "property");
     }
@@ -157,7 +157,7 @@ function explainJsonSpec(object, type) {
   if (object.allOf) {
     for (const schema of object.allOf) {
       schema._explained = {
-        specification: "schemaObject"
+        specification: "schemaObject",
       };
       explainJsonSpec(schema, "schema");
     }
@@ -165,13 +165,13 @@ function explainJsonSpec(object, type) {
   if (object.externalDocs) {
     object.externalDocs._explained = {
       annotation: "@SWG\\ExternalDocumentation",
-      specification: "externalDocumentationObject"
+      specification: "externalDocumentationObject",
     };
   }
   if (object.xml) {
     object.xml._explained = {
       annotation: "@SWG\\Xml",
-      specification: "xmlObject"
+      specification: "xmlObject",
     };
   }
 }
