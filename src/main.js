@@ -3,6 +3,7 @@ import App from "./components/App.vue";
 import NestedJson from "./components/NestedJson";
 
 Vue.config.productionTip = false;
+// eslint-disable-next-line vue/component-definition-name-casing
 Vue.component("nested-json", NestedJson);
 const vm = new Vue(App);
 document.body.append(vm.$mount().$el);
