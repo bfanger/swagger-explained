@@ -9,6 +9,7 @@ module.exports = {
   rules: {
     "import/extensions": ["error", "ignorePackages", { ts: "never" }],
     "no-restricted-syntax": "off",
+    "import/no-extraneous-dependencies": "off",
   },
   overrides: [
     {
