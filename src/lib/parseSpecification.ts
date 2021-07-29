@@ -11,7 +11,11 @@ const openapi: Record<string, Mapping> = {
       components: "OA_COMPONENTS",
     },
     maps: { paths: ["OA_PATHS", "OA_PATH"] },
-    arrays: { servers: "OA_SERVER" },
+    arrays: {
+      servers: "OA_SERVER",
+      tags: "OA_TAG",
+      security: "OA_SECURITY_REQUIREMENT",
+    },
   },
   OA_INFO: {
     href: "#infoObject",
@@ -113,6 +117,7 @@ const openapi: Record<string, Mapping> = {
     maps: { properties: ["MAP", "OA_SCHEMA"] },
   },
   OA_SECURITY_SCHEME: { href: "#securitySchemeObject" },
+  OA_SECURITY_REQUIREMENT: { href: "#securityRequirementObject" },
 };
 
 // Swagger 2.0
@@ -123,6 +128,9 @@ const swagger: Record<string, Mapping> = {
     maps: {
       paths: ["SWG_PATHS", "SWG_PATH"],
       definitions: ["SWG_DEFINITIONS", "SWG_SCHEMA"],
+    },
+    arrays: {
+      tags: "SWG_TAG",
     },
   },
   SWG_INFO: { ...openapi.OA_INFO },
@@ -158,6 +166,7 @@ const swagger: Record<string, Mapping> = {
   },
   SWG_HEADER: { href: "#headerObject" },
   SWG_RESPONSES: { href: "#responsesObject" },
+  SWG_TAG: { href: "#tagObject" },
 };
 const mapping: Record<string, Mapping> = {
   // Internal

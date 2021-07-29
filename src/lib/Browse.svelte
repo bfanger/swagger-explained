@@ -20,7 +20,7 @@
 
 <style lang="scss">
   .browse {
-    background: #1f1f1f;
+    background: #282a28;
     font: 10px / normal "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
       "source-code-pro", monospace;
     color: white;

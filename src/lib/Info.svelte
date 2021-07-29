@@ -41,6 +41,7 @@
     }
   }
   onMount(() => {
+    el.scrollTo(0, 0);
     intoView($hash);
   });
   $: intoView($hash);
