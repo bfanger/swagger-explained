@@ -18,7 +18,6 @@ export async function fetchResponse(
   const { fetch: _, ...fetchOptions } = options;
   const response = await fetch(info, fetchOptions);
   if (response.ok === false) {
-    console.log(response);
     throw new Error("Request failed");
   }
   return response;

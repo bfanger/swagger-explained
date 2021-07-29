@@ -1,19 +1,12 @@
-# Svelte Project Template
+# Interactive documentation for openapi.yaml & swagger.json
 
-Svelte project preconfigured with:
-
-- Sveltekit (Vite)
-- Typescript
-- Sass
-- Eslint & Prettier
+Live: https://bfanger.nl/swagger-explained/
 
 ## Setup
 
 ```sh
-npx degit "github.com/bfanger/svelte-project-template#main" my-svelte-project
-cd my-svelte-project
-npm install   # or  yarn install
-npm run dev   # or  yarn dev
+yarn install
+yarn dev
 ```
 
 ## Linting

@@ -9,6 +9,7 @@
     "lint": "prettier --check --loglevel=warn 'src/**/*.svelte' && tsc --noEmit && svelte-check --fail-on-warnings --fail-on-hints && eslint --max-warnings=0 --ext=.js,.ts src",
     "format": "prettier --write . && eslint --fix --ext=.js,.ts src",
     "test": "jest",
+    "deploy": "rimraf build && yarn build && git-directory-deploy --branch gh-pages --directory build/",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -37,6 +38,7 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-prettier": "^3.3.1",
+    "git-directory-deploy": "^1.5.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.1.1",
     "prettier": "~2.3.2",

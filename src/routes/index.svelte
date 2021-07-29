@@ -6,17 +6,19 @@
 
   const fallbackUrl =
     "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml";
-  export const load: Load = async ({ fetch, page: { query } }) => {
-    let url = query.get("url") || "";
+  export const load: Load = async ({ fetch, page }) => {
+    let url = page.query.get("url") || "";
 
     const match = url.match(
       /^https:\/\/github.com\/([^/]+\/[^/]+)\/blob\/(.+)$/
     );
+    const pathname = typeof location === "undefined" ? "/" : location.pathname;
     if (match) {
       return {
         status: 301,
         redirect:
-          "/?url=" +
+          pathname +
+          "?url=" +
           encodeURIComponent(
             `https://raw.githubusercontent.com/${match[1]}/${match[2]}`
           ),
@@ -29,9 +31,13 @@
     if (!version) {
       throw new Error("unknown version");
     }
-    const html = await fetchResponse("/specs/" + version + ".html", {
-      fetch,
-    });
+
+    const html = await fetchResponse(
+      "/swagger-explained/specs/" + version + ".html",
+      {
+        fetch,
+      }
+    );
     return {
       props: {
         url,
@@ -55,6 +61,7 @@
 
 <svelte:head>
   <title>Interactive OpenAPI-Specification</title>
+  <link rel="icon" href="favicon.ico" />
 </svelte:head>
 <div class="page">
   <ToolBar {url} />

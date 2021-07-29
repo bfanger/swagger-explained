@@ -8,6 +8,10 @@ export default {
   kit: {
     target: "svelte-app",
     adapter: adapter(),
+    paths: {
+      base: "/swagger-explained",
+      assets: "/swagger-explained",
+    },
     prerender: {
       pages: [
         "*",

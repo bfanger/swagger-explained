@@ -10,16 +10,20 @@
     const query = new URLSearchParams(location.search);
 
     if (query.get("url") && url == "") {
-      goto("/?url=" + window.encodeURIComponent(query.get("url")));
+      goto(
+        location.pathname +
+          "?url=" +
+          window.encodeURIComponent(query.get("url"))
+      );
     }
   });
   function onSubmit() {
-    goto("/?url=" + window.encodeURIComponent(url));
+    goto(location.pathname + "?url=" + window.encodeURIComponent(url));
   }
 </script>
 
 <header>
-  <img src="/swagger.svg" alt="Swagger" class="logo" />
+  <img src="swagger.svg" alt="Swagger" class="logo" />
   <form on:submit|preventDefault={onSubmit}>
     <input
       class="input"
