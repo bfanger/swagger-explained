@@ -5,14 +5,27 @@
   export let href: string;
   const id = {};
   const hover = getContext<Writable<any>>("Browse");
+  let el: HTMLAnchorElement;
 
-  function onMouseenter() {
-    hover.set(id);
+  function onMouseover(e: MouseEvent) {
+    let target = e.target as HTMLElement;
+    while (target) {
+      if (target.classList.contains("link")) {
+        if (el === target) {
+          hover.set(id);
+        }
+        return;
+      }
+      target = target.parentElement;
+    }
   }
   function onMouseleave() {
     if ($hover == id) {
       hover.set(undefined);
     }
+  }
+  function onFocus() {
+    hover.set(id);
   }
 </script>
 
@@ -20,8 +33,10 @@
   class="link"
   class:hover={$hover === id}
   {href}
-  on:mouseenter={onMouseenter}
+  bind:this={el}
+  on:mouseover={onMouseover}
   on:mouseleave={onMouseleave}
+  on:focus={onFocus}
 >
   <slot />
   <div class="title">{href}</div>
@@ -47,9 +62,9 @@
     font-size: 9px;
   }
   .hover {
-    border-color: rgba(#eee, 0.5);
+    border-color: rgba(#eee, 0.8);
     :global(.link) {
-      border-color: rgba(#eee, 0.3);
+      border-color: rgba(#eee, 0.15);
     }
     > .title {
       display: block;

@@ -60,8 +60,11 @@
 </script>
 
 <svelte:head>
-  <title>Interactive OpenAPI-Specification</title>
-  <link rel="icon" href="favicon.ico" />
+  <title>OpenAPI Explained</title>
+  <meta
+    name="description"
+    content="Interactive OpenAPI and Swagger Specification, Read and navigate the spec based on (your) yaml or json documentation."
+  />
 </svelte:head>
 <div class="page">
   <ToolBar {url} />

@@ -27,15 +27,13 @@
       class:boolean={typeof value === "boolean"}>{JSON.stringify(value)}</span
     >
   {:else}
-    <div style="width:100%">
-      {#each nodes as subnode}
-        <div class="line">
-          {#if node.type === "ARRAY"}<span class="dash">-&nbsp;</span
-            >{:else if skipindent === false}&nbsp;&nbsp;{/if}
-          <svelte:self node={subnode} skipindent={node.type === "ARRAY"} />
-        </div>
-      {/each}
-    </div>
+    {#each nodes as subnode}
+      <div class="line">
+        {#if node.type === "ARRAY"}<span class="dash">-&nbsp;</span
+          >{:else if skipindent === false}&nbsp;&nbsp;{/if}
+        <svelte:self node={subnode} skipindent={node.type === "ARRAY"} />
+      </div>
+    {/each}
   {/if}
 </svelte:component>
 
