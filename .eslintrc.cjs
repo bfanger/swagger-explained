@@ -10,6 +10,7 @@ module.exports = {
     "import/extensions": ["error", "ignorePackages", { ts: "never" }],
     "no-restricted-syntax": "off",
     "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   overrides: [
     {

@@ -1,4 +1,5 @@
 import { derived } from "svelte/store";
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import { navigating } from "$app/stores";
 
 function getHash() {

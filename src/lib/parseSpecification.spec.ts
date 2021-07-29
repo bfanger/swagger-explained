@@ -1,5 +1,5 @@
 import parseSpecification from "./parseSpecification";
-import type { Specification } from "./openapipi";
+import type { Specification } from "./types";
 
 describe("parseSpecification", () => {
   const example: Specification = {

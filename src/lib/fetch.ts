@@ -18,15 +18,16 @@ export async function fetchResponse(
   const { fetch: _, ...fetchOptions } = options;
   const response = await fetch(info, fetchOptions);
   if (response.ok === false) {
+    console.log(response);
     throw new Error("Request failed");
   }
   return response;
 }
 
-export async function fetchJson(
+export async function fetchJson<T = unknown>(
   info: RequestInfo,
   options: FetchOptions = {}
-): Promise<unknown> {
+): Promise<T> {
   const response = await fetchResponse(info, options);
   return response.json();
 }
@@ -39,10 +40,10 @@ export async function fetchYaml(
   return yaml.parse(await response.text());
 }
 
-export async function fetchData(
+export async function fetchData<T = unknown>(
   info: RequestInfo,
   options: FetchOptions = {}
-): Promise<unknown> {
+): Promise<T> {
   const url = typeof info === "string" ? (info as string) : info.url;
   const match = url.match(/[^./].([^.]+)$/);
   const ext = match && match[1].toLowerCase();

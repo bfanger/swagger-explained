@@ -1,14 +1,19 @@
 <script lang="ts">
   import DataNode from "./DataNode.svelte";
   import LinkNode from "./LinkNode.svelte";
-
-  import type { AnyNode } from "./specification.types";
+  import type { AnyNode, ContainerNode, ValueNode } from "./types";
 
   export let node: AnyNode;
+  export let skipindent: boolean = false;
+
+  let value: ValueNode["value"];
+  $: value = (<any>node).value;
+  let nodes: ContainerNode["nodes"];
+  $: nodes = (<any>node).nodes || [];
+  let href: ContainerNode["href"];
+  $: href = (<any>node).href;
+
   $: named = typeof node.name !== "undefined";
-  $: href = ["OBJECT", "VALUE", "ARRAY"].includes(node.type)
-    ? undefined
-    : "#" + node.type;
 </script>
 
 <svelte:component this={href ? LinkNode : DataNode} {...href ? { href } : {}}>
@@ -17,18 +22,17 @@
   {/if}
   {#if node.type === "VALUE"}
     <span
-      class:string={typeof node.value === "string"}
-      class:number={typeof node.value === "number"}
-      class:boolean={typeof node.value === "boolean"}
-      >{JSON.stringify(node.value)}</span
+      class:string={typeof value === "string"}
+      class:number={typeof value === "number"}
+      class:boolean={typeof value === "boolean"}>{JSON.stringify(value)}</span
     >
   {:else}
     <div style="width:100%">
-      {#each node.nodes as subnode}
+      {#each nodes as subnode}
         <div class="line">
           {#if node.type === "ARRAY"}<span class="dash">-&nbsp;</span
-            >{:else}&nbsp;&nbsp;{/if}
-          <svelte:self node={subnode} />
+            >{:else if skipindent === false}&nbsp;&nbsp;{/if}
+          <svelte:self node={subnode} skipindent={node.type === "ARRAY"} />
         </div>
       {/each}
     </div>
@@ -42,6 +46,7 @@
   .line {
     display: flex;
     white-space: nowrap;
+    justify-items: start;
   }
   .string {
     color: #96c896;

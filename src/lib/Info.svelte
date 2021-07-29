@@ -32,7 +32,7 @@
         if (href.match(/^#/)) {
           const scrolled = intoView(href);
           if (scrolled) {
-            event.preventDefault();
+            // event.preventDefault();
           }
         }
         break;
