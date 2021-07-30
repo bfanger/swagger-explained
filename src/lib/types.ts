@@ -11,15 +11,11 @@ export type Mapping = {
   maps?: Record<string, [string, string]>;
   arrays?: Record<string, string>;
 };
-export type ValueNode = {
-  type: "VALUE";
-  name?: string;
-  value: string | boolean | number;
-};
-export type ContainerNode = {
+
+export type MappedNode = {
   type: string;
   href?: string;
   name?: string;
-  nodes: AnyNode[];
+  value?: string | boolean | number;
+  nodes?: MappedNode[];
 };
-export type AnyNode = ContainerNode | ValueNode;

@@ -84,6 +84,10 @@
       @extend %heading;
       font-size: 1.7rem;
     }
+    :global(h6) {
+      @extend %heading;
+      font-size: 1.5rem;
+    }
     :global(a) {
       text-decoration: none;
       color: #3489d1;
@@ -111,13 +115,15 @@
     }
 
     :global(pre) {
-      border: 1px solid #888;
+      border: 1px solid #e3e3e3;
       border-radius: 6px;
       font-size: 14px;
       display: block;
       padding: 10px;
-      background-color: #333;
-      color: #f1f2f3;
+      background-color: #f2f2f2;
+      white-space: pre;
+      overflow: scroll;
+      color: #292929;
     }
   }
 </style>

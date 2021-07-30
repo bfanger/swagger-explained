@@ -37,34 +37,36 @@
   on:mouseover={onMouseover}
   on:mouseleave={onMouseleave}
   on:focus={onFocus}
+  ><div class="title">{href}</div>
+  <slot /></a
 >
-  <slot />
-  <div class="title">{href}</div>
-</a>
 
 <style lang="scss">
   .link {
     display: block;
     text-decoration: none;
-    border: 1px solid rgba(#eee, 0.05);
-    position: relative;
+    outline: 1px solid rgba(#eee, 0.05);
+    width: 100%;
+    min-width: max-content;
   }
   .title {
     position: absolute;
-    left: 0;
-    top: 0;
+    right: -4px;
+    z-index: 1;
     pointer-events: none;
     background-color: rgba(#eee, 0.8);
     color: black;
-    padding: 0 3px;
-    border-bottom-right-radius: 4px;
+    padding: 1px 6px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     display: none;
-    font-size: 9px;
+    font-size: 10px;
   }
-  .hover {
-    border-color: rgba(#eee, 0.8);
+  .hover,
+  :focus {
+    outline-color: rgba(#eee, 0.8);
     :global(.link) {
-      border-color: rgba(#eee, 0.15);
+      outline-color: rgba(#eee, 0.15);
     }
     > .title {
       display: block;

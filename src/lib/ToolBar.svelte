@@ -44,7 +44,8 @@
     align-items: center;
   }
   .logo {
-    height: 3.6rem;
+    width: 13.8rem;
+    height: 3.8rem;
     margin-left: 2rem;
     margin-right: 4rem;
   }

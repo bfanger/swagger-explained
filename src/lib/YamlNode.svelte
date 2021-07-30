@@ -1,64 +1,26 @@
 <script lang="ts">
-  import DataNode from "./DataNode.svelte";
+  import type { MappedNode } from "./types";
   import LinkNode from "./LinkNode.svelte";
-  import type { AnyNode, ContainerNode, ValueNode } from "./types";
+  import Slot from "./Slot.svelte";
+  import YamlLine from "./YamlLine.svelte";
 
-  export let node: AnyNode;
-  export let skipindent: boolean = false;
+  export let node: MappedNode;
+  export let indent = 0;
+  export let isArrayItem = false;
 
-  let value: ValueNode["value"];
-  $: value = (<any>node).value;
-  let nodes: ContainerNode["nodes"];
-  $: nodes = (<any>node).nodes || [];
-  let href: ContainerNode["href"];
-  $: href = (<any>node).href;
-
-  $: named = typeof node.name !== "undefined";
+  // Note: The template looks ugly, but thats because the whitespace is important
 </script>
 
-<svelte:component this={href ? LinkNode : DataNode} {...href ? { href } : {}}>
-  {#if named}
-    <span class="name">{node.name}</span><span class="double-colon">:</span>
-  {/if}
-  {#if node.type === "VALUE"}
-    <span
-      class:string={typeof value === "string"}
-      class:number={typeof value === "number"}
-      class:boolean={typeof value === "boolean"}>{JSON.stringify(value)}</span
-    >
-  {:else}
-    {#each nodes as subnode}
-      <div class="line">
-        {#if node.type === "ARRAY"}<span class="dash">-&nbsp;</span
-          >{:else if skipindent === false}&nbsp;&nbsp;{/if}
-        <svelte:self node={subnode} skipindent={node.type === "ARRAY"} />
-      </div>
-    {/each}
-  {/if}
-</svelte:component>
-
-<style>
-  .name {
-    color: #f2777a;
-  }
-  .line {
-    display: flex;
-    white-space: nowrap;
-    justify-items: start;
-  }
-  .string {
-    color: #96c896;
-  }
-  .boolean {
-    color: #f08d55;
-  }
-  .number {
-    color: #f08d55;
-  }
-  .dash {
-    color: #ccc;
-  }
-  .double-colon {
-    color: #bd8fbd;
-  }
-</style>
+{#each node.nodes as subnode, i}<svelte:component
+    this={subnode.href ? LinkNode : Slot}
+    {...subnode.href ? { href: subnode.href } : {}}
+    ><YamlLine
+      spaces={isArrayItem && i == 0 ? 0 : indent * 2}
+      name={subnode.name}
+      value={subnode.value}
+    />{#if subnode.nodes}{#if subnode.name}<br />{/if}<svelte:self
+        node={subnode}
+        indent={indent + 1}
+        isArrayItem={typeof subnode.name == "undefined"}
+      />{:else}<br />{/if}</svelte:component
+  >{/each}

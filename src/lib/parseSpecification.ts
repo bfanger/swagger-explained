@@ -1,5 +1,5 @@
 import type { JSONValue } from "@sveltejs/kit/types/endpoint";
-import type { AnyNode, ContainerNode, Mapping, Specification } from "./types";
+import type { MappedNode, Mapping, Specification } from "./types";
 
 const openapi: Record<string, Mapping> = {
   // v3.x
@@ -114,7 +114,14 @@ const openapi: Record<string, Mapping> = {
   OA_TAG: { href: "#tagObject" },
   OA_SCHEMA: {
     href: "#schemaObject",
-    maps: { properties: ["MAP", "OA_SCHEMA"] },
+    props: { items: "OA_SCHEMA" },
+    maps: {
+      properties: ["MAP", "OA_SCHEMA"],
+      additionalProperties: ["MAP", "OA_SCHEMA"],
+    },
+    arrays: {
+      allOf: "OA_SCHEMA",
+    },
   },
   OA_SECURITY_SCHEME: { href: "#securitySchemeObject" },
   OA_SECURITY_REQUIREMENT: { href: "#securityRequirementObject" },
@@ -160,6 +167,7 @@ const swagger: Record<string, Mapping> = {
   SWG_HEADERS: { href: "#headersObject" },
   SWG_RESPONSE: {
     href: "#responseObject",
+    props: { schema: "SWG_SCHEMA" },
     maps: {
       headers: ["SWG_HEADERS", "SWG_HEADER"],
     },
@@ -179,10 +187,10 @@ const mapping: Record<string, Mapping> = {
   ...openapi,
 };
 function parseNode(
-  type: ContainerNode["type"],
+  type: MappedNode["type"],
   data: JSONValue,
   name?: string
-): AnyNode {
+): MappedNode {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let config: any = mapping[type];
   if (!config) {
@@ -195,15 +203,15 @@ function parseNode(
   config.arrays = config.arrays || {};
 
   if (typeof data === "object") {
-    if (Object.keys(data).length === 1 && (<any>data).$ref) {
-      return {
-        type,
-        name,
-        href: mapping.REF.href,
-        nodes: [{ type: "VALUE", name: "$ref", value: (<any>data).$ref }],
-      };
-    }
-    const node: ContainerNode = { type, href: config.href, name, nodes: [] };
+    // if (Object.keys(data).length === 1 && (<any>data).$ref) {
+    //   return {
+    //     type,
+    //     name,
+    //     href: mapping.REF.href,
+    //     nodes: [{ type: "VALUE", name: "$ref", value: (<any>data).$ref }],
+    //   };
+    // }
+    const node: MappedNode = { type, href: config.href, name, nodes: [] };
     for (let key of Object.keys(data)) {
       const value = data[key];
       if (type === "ARRAY") {
@@ -213,7 +221,7 @@ function parseNode(
         node.nodes.push(parseNode(config.props[key], value, key));
       } else if (config.maps[key]) {
         const subtype = config.maps[key][0];
-        const map: ContainerNode = {
+        const map: MappedNode = {
           type: subtype,
           href: mapping[subtype] ? mapping[subtype].href : undefined,
           name: key,
@@ -226,7 +234,7 @@ function parseNode(
         }
         node.nodes.push(map);
       } else if (config.arrays[key]) {
-        const map: ContainerNode = {
+        const map: MappedNode = {
           type: "ARRAY",
           name: key,
           nodes: [],
@@ -251,12 +259,12 @@ function parseNode(
   throw new Error(`Parsing ${type} failed`);
 }
 
-export default function parseSpecification(spec: Specification): ContainerNode {
+export default function parseSpecification(spec: Specification): MappedNode {
   if (spec.openapi) {
-    return parseNode("OPENAPI", spec) as ContainerNode;
+    return parseNode("OPENAPI", spec) as MappedNode;
   }
   if (spec.swagger) {
-    return parseNode("SWAGGER", spec) as ContainerNode;
+    return parseNode("SWAGGER", spec) as MappedNode;
   }
   throw new Error("Unsupported spec");
 }
