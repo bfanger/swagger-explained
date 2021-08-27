@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import { goto } from "$app/navigation";
+  import logoSrc from "../assets/swagger.svg";
 
   export let url: string;
 
@@ -23,7 +24,7 @@
 </script>
 
 <header>
-  <img src="swagger.svg" alt="Swagger" class="logo" />
+  <img src={logoSrc} alt="Swagger" class="logo" />
   <form on:submit|preventDefault={onSubmit}>
     <input
       class="input"

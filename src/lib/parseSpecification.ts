@@ -1,6 +1,11 @@
 import type { JSONValue } from "@sveltejs/kit/types/endpoint";
 import type { MappedNode, Mapping, Specification } from "./types";
 
+function createRef(ref: string, part: unknown) {
+  const escaped = `${part}`.replace("~", "~0").replace("/", "~1");
+  return `${ref}/${escaped}`;
+}
+
 const openapi: Record<string, Mapping> = {
   // v3.x
   OPENAPI: {
@@ -141,7 +146,13 @@ const swagger: Record<string, Mapping> = {
     },
   },
   SWG_INFO: { ...openapi.OA_INFO },
-  SWG_SCHEMA: { ...openapi.OA_SCHEMA },
+  SWG_SCHEMA: {
+    href: "#schemaObject",
+    props: { items: "SWG_SCHEMA" },
+    maps: {
+      properties: ["MAP", "SWG_SCHEMA"],
+    },
+  },
   SWG_DEFINITIONS: { href: "#definitionsObject" },
   SWG_PATHS: { href: "#pathsObject" },
   SWG_PATH: {
@@ -187,6 +198,7 @@ const mapping: Record<string, Mapping> = {
   ...openapi,
 };
 function parseNode(
+  ref: string,
   type: MappedNode["type"],
   data: JSONValue,
   name?: string
@@ -218,7 +230,9 @@ function parseNode(
         key = undefined;
       }
       if (config.props[key]) {
-        node.nodes.push(parseNode(config.props[key], value, key));
+        node.nodes.push(
+          parseNode(createRef(ref, key), config.props[key], value, key)
+        );
       } else if (config.maps[key]) {
         const subtype = config.maps[key][0];
         const map: MappedNode = {
@@ -229,7 +243,12 @@ function parseNode(
         };
         for (const [subkey, subvalue] of Object.entries(value)) {
           map.nodes.push(
-            parseNode(config.maps[key][1], subvalue as any, subkey)
+            parseNode(
+              createRef(createRef(ref, key), subkey),
+              config.maps[key][1],
+              subvalue as any,
+              subkey
+            )
           );
         }
         node.nodes.push(map);
@@ -240,14 +259,20 @@ function parseNode(
           nodes: [],
         };
         for (const subvalue of value) {
-          map.nodes.push(parseNode(config.arrays[key], subvalue as any));
+          map.nodes.push(
+            parseNode(
+              createRef(ref, subvalue),
+              config.arrays[key],
+              subvalue as any
+            )
+          );
         }
         node.nodes.push(map);
       } else if (typeof value === "object") {
         if (Array.isArray(value)) {
-          node.nodes.push(parseNode("ARRAY", value, key));
+          node.nodes.push(parseNode(createRef(ref, key), "ARRAY", value, key));
         } else {
-          node.nodes.push(parseNode("MAP", value, key));
+          node.nodes.push(parseNode(createRef(ref, key), "MAP", value, key));
         }
       } else {
         node.nodes.push({ type: "VALUE", name: key, value });
@@ -256,15 +281,15 @@ function parseNode(
     return node;
   }
   // eslint-disable-next-line no-console
-  throw new Error(`Parsing ${type} failed`);
+  throw new Error(`Parsing ${type} failed for ${ref}`);
 }
 
 export default function parseSpecification(spec: Specification): MappedNode {
   if (spec.openapi) {
-    return parseNode("OPENAPI", spec) as MappedNode;
+    return parseNode("#", "OPENAPI", spec) as MappedNode;
   }
   if (spec.swagger) {
-    return parseNode("SWAGGER", spec) as MappedNode;
+    return parseNode("#", "SWAGGER", spec) as MappedNode;
   }
   throw new Error("Unsupported spec");
 }

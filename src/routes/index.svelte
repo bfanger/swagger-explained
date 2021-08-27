@@ -6,23 +6,26 @@
 
   const fallbackUrl =
     "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml";
-  export const load: Load = async ({ fetch, page }) => {
-    let url = page.query.get("url") || "";
 
+  export const load: Load = async ({ fetch, page }) => {
+    const isSSR = typeof window === "undefined";
+
+    let url = "";
+    if (!isSSR && page.query.has("url")) {
+      url = page.query.get("url") || "";
+    }
     const match = url.match(
       /^https:\/\/github.com\/([^/]+\/[^/]+)\/blob\/(.+)$/
     );
     const pathname = typeof location === "undefined" ? "/" : location.pathname;
     if (match) {
-      return {
-        status: 301,
-        redirect:
-          pathname +
-          "?url=" +
-          encodeURIComponent(
-            `https://raw.githubusercontent.com/${match[1]}/${match[2]}`
-          ),
-      };
+      url = `https://raw.githubusercontent.com/${match[1]}/${match[2]}`;
+      if (isSSR) {
+        return {
+          status: 301,
+          redirect: pathname + "?url=" + encodeURIComponent(url),
+        };
+      }
     }
     const spec = await fetchData<{ [key: string]: JSONValue }>(
       url || fallbackUrl
@@ -31,13 +34,9 @@
     if (!version) {
       throw new Error("unknown version");
     }
-
-    const html = await fetchResponse(
-      "/swagger-explained/specs/" + version + ".html",
-      {
-        fetch,
-      }
-    );
+    const html = await fetchResponse("specs/" + version + ".html", {
+      fetch,
+    });
     return {
       props: {
         url,
@@ -71,7 +70,9 @@
   <main>
     <MasterDetail>
       <svelte:fragment slot="master">
-        <Browse {spec} />
+        {#if spec}
+          <Browse {spec} />
+        {/if}
       </svelte:fragment>
 
       <Info {html} />

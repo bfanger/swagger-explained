@@ -10,7 +10,7 @@ module.exports = {
     "import/extensions": ["error", "ignorePackages", { ts: "never" }],
     "no-restricted-syntax": "off",
     "import/no-extraneous-dependencies": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
   },
   overrides: [
     {
@@ -23,7 +23,7 @@ module.exports = {
   ],
   settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"],
+      "@typescript-eslint/parser": [".ts"],
     },
     "import/resolver": {
       typescript: {
