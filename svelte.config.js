@@ -9,7 +9,7 @@ export default {
     target: "svelte-app",
     adapter: adapter(),
     prerender: {
-      pages: [
+      entries: [
         "*",
         "/specs/1.2.html",
         "/specs/2.0.html",
