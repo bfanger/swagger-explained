@@ -1,6 +1,6 @@
 # Interactive documentation for openapi.yaml & swagger.json
 
-Live: https://bfanger.nl/swagger-explained/
+Live: https://swagger-explained.bfanger.nl
 
 ## Setup
 
