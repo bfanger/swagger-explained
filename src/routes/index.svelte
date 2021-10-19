@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import type { Load } from "@sveltejs/kit";
-  import type { JSONValue } from "@sveltejs/kit/types/endpoint";
+  import type { JSONValue } from "@sveltejs/kit/types/helper";
   import type { Specification } from "$lib/types";
   import { fetchData, fetchResponse } from "$lib/fetch";
 

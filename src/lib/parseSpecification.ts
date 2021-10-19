@@ -1,4 +1,4 @@
-import type { JSONValue } from "@sveltejs/kit/types/endpoint";
+import type { JSONValue } from "@sveltejs/kit/types/helper";
 import type { MappedNode, Mapping, Specification } from "./types";
 
 function createRef(ref: string, part: unknown) {

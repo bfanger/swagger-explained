@@ -1,4 +1,4 @@
-import type { JSONValue } from "@sveltejs/kit/types/endpoint";
+import type { JSONValue } from "@sveltejs/kit/types/helper";
 
 /* eslint-disable no-use-before-define */
 export type Specification = { [key: string]: JSONValue } & (
