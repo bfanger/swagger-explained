@@ -14,7 +14,7 @@ export async function fetchResponse(
   options: FetchOptions = {}
 ): Promise<Response> {
   const fetch: Fetch = options.fetch || globalThis.fetch;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { fetch: _, ...fetchOptions } = options;
 
   const response = await fetch(info, fetchOptions);

@@ -7,28 +7,28 @@
   const fallbackUrl =
     "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml";
 
-  export const load: Load = async ({ fetch, page }) => {
+  export const load: Load = async ({ fetch, url }) => {
     const isSSR = typeof window === "undefined";
 
-    let url = "";
-    if (!isSSR && page.query.has("url")) {
-      url = page.query.get("url") || "";
+    let specUrl = "";
+    if (!isSSR && url.searchParams.has("url")) {
+      specUrl = url.searchParams.get("url") || "";
     }
-    const match = url.match(
+    const match = specUrl.match(
       /^https:\/\/github.com\/([^/]+\/[^/]+)\/blob\/(.+)$/
     );
     const pathname = typeof location === "undefined" ? "/" : location.pathname;
     if (match) {
-      url = `https://raw.githubusercontent.com/${match[1]}/${match[2]}`;
+      specUrl = `https://raw.githubusercontent.com/${match[1]}/${match[2]}`;
       if (isSSR) {
         return {
           status: 301,
-          redirect: pathname + "?url=" + encodeURIComponent(url),
+          redirect: pathname + "?url=" + encodeURIComponent(specUrl),
         };
       }
     }
     const spec = await fetchData<{ [key: string]: JSONValue }>(
-      url || fallbackUrl
+      specUrl || fallbackUrl
     );
     let version = spec.openapi || spec.swagger;
     if (!version) {
@@ -39,7 +39,7 @@
     });
     return {
       props: {
-        url,
+        url: specUrl,
         spec,
         html: await html.text(),
       },

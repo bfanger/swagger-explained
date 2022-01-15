@@ -12,7 +12,7 @@
     }
     let target = el.querySelector(selector);
     if (!target) {
-      target = el.querySelector("a[name=" + selector.substr(1) + "]");
+      target = el.querySelector("a[name=" + selector.substring(1) + "]");
     }
     if (target) {
       target.scrollIntoView();

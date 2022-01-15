@@ -23,14 +23,16 @@
 
 <style lang="scss">
   .browse {
-    background: #2d2d2d;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 0.7rem 0.5rem;
+    overflow: scroll;
     color: #ccc;
+    background: #2d2d2d;
     font: 11px / normal "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
       "source-code-pro", monospace;
-    height: 100%;
     white-space: nowrap;
-    position: relative;
-    overflow: scroll;
-    padding: 0.7rem 0.5rem;
   }
 </style>

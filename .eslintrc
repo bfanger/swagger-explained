@@ -1,0 +1,8 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "extraFileExtensions": [".cjs", ".svelte"]
+  },
+  "extends": ["triple/svelte"]
+}

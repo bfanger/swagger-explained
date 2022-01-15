@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import marked from "marked";
+import { marked } from "marked";
 import { fetchResponse } from "$lib/fetch";
 
 export const get: RequestHandler = async (req) => {

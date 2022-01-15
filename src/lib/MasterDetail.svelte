@@ -18,7 +18,6 @@
     width: 25%;
     min-width: 35rem;
     height: 100%;
-    overflow-y: scroll;
   }
   .detail {
     width: 75%;
