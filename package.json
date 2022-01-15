@@ -57,7 +57,7 @@
     "vite": "^2.5.10"
   },
   "dependencies": {
-    "marked": "^3.0.4",
+    "marked": "^4.0.10",
     "yaml": "^1.10.2"
   },
   "jest": {
