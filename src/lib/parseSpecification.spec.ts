@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import parseSpecification from "./parseSpecification";
 import type { Specification } from "./types";
 
