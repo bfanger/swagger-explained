@@ -6,7 +6,6 @@ import adapter from "@sveltejs/adapter-static";
 export default {
   preprocess: preprocess(),
   kit: {
-    target: "svelte-app",
     adapter: adapter(),
     prerender: {
       entries: [
