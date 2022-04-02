@@ -79,6 +79,7 @@
     font-size: 16px;
     font-weight: 700;
     padding: 4px 30px;
+    margin: 0;
     cursor: pointer;
   }
 </style>

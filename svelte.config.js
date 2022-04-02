@@ -8,6 +8,7 @@ export default {
   kit: {
     adapter: adapter(),
     prerender: {
+      default: true,
       entries: [
         "*",
         "/specs/1.2.html",
