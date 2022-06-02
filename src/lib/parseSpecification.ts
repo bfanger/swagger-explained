@@ -1,4 +1,4 @@
-import type { JSONValue } from "@sveltejs/kit/types/helper";
+import type { JSONValue } from "@sveltejs/kit/types/private";
 import type { MappedNode, Mapping, Specification } from "./types";
 
 function createRef(ref: string, part: unknown) {
@@ -204,7 +204,7 @@ function parseNode(
   name?: string
 ): MappedNode {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let config: any = mapping[type];
+  let config = mapping[type];
   if (!config) {
     // eslint-disable-next-line no-console
     console.warn(`Unexpected type: ${type}`);
@@ -224,11 +224,12 @@ function parseNode(
     //   };
     // }
     const node: MappedNode = { type, href: config.href, name, nodes: [] };
-    for (let key of Object.keys(data)) {
-      const value = data[key];
+    for (let key of Object.keys(data as any)) {
+      const value = (data as any)[key];
       if (type === "ARRAY") {
-        key = undefined;
+        key = "";
       }
+      node.nodes = node.nodes || [];
       if (config.props[key]) {
         node.nodes.push(
           parseNode(createRef(ref, key), config.props[key], value, key)
@@ -239,8 +240,8 @@ function parseNode(
           type: subtype,
           href: mapping[subtype] ? mapping[subtype].href : undefined,
           name: key,
-          nodes: [],
         };
+        map.nodes = [];
         for (const [subkey, subvalue] of Object.entries(value)) {
           map.nodes.push(
             parseNode(
@@ -259,6 +260,7 @@ function parseNode(
           nodes: [],
         };
         for (const subvalue of value) {
+          map.nodes = map.nodes || [];
           map.nodes.push(
             parseNode(
               createRef(ref, subvalue),

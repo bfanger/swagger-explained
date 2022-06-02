@@ -1,4 +1,4 @@
-import yaml from "yaml";
+import { parse } from "yaml";
 
 export type Fetch = (
   info: RequestInfo,
@@ -37,7 +37,7 @@ export async function fetchYaml(
   options: FetchOptions = {}
 ): Promise<unknown> {
   const response = await fetchResponse(info, options);
-  return yaml.parse(await response.text());
+  return parse(await response.text());
 }
 
 export async function fetchData<T = unknown>(
@@ -48,7 +48,7 @@ export async function fetchData<T = unknown>(
   const match = url.match(/[^./].([^.]+)$/);
   const ext = match && match[1].toLowerCase();
   const response = await fetchResponse(info, options);
-  const contentType = response.headers.get("Content-Type").split(";")[0];
+  const contentType = response.headers.get("Content-Type")?.split(";")[0] ?? "";
   let type = "AUTO";
 
   if (contentType.match(/yaml/i)) {
@@ -64,7 +64,7 @@ export async function fetchData<T = unknown>(
     type = "JSON";
   }
   if (type === "YAML") {
-    return yaml.parse(await response.text());
+    return parse(await response.text());
   }
   if (type === "JSON") {
     return response.json();

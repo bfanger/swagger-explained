@@ -10,7 +10,7 @@ describe("parseSpecification", () => {
   it("should", () => {
     const tree = parseSpecification(example);
     expect(tree.type).toBe("OPENAPI");
-    expect(tree.nodes[0]).toEqual({
+    expect(tree.nodes?.[0]).toEqual({
       type: "VALUE",
       name: "openapi",
       value: "3.0.0",
