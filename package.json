@@ -12,6 +12,7 @@
     "lint:eslint": "eslint --ext=js,ts --max-warnings=0 src",
     "format": "prettier --write src && eslint --ext=js,ts --fix src",
     "test": "vitest run",
+    "preinstall": "npx only-allow pnpm",
     "precommit": "lint-staged",
     "prepare": "husky install"
   },
@@ -57,7 +58,7 @@
     "svelte-preprocess": "^4.9.5",
     "typescript": "^4.4.3",
     "vite": "^2.5.10",
-    "vitest": "^0.13.0"
+    "vitest": "^0.15.1"
   },
   "dependencies": {
     "marked": "^4.0.10",
