@@ -3,16 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "concurrently --kill-others-on-fail \"npm:lint:*\"",
     "lint:prettier": "prettier --check --loglevel=warn src",
     "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint --ext=js,ts --max-warnings=0 src",
     "format": "prettier --write src && eslint --ext=js,ts --fix src",
     "test": "vitest run",
-    "preinstall": "npx only-allow pnpm",
+    "preinstall": "npx only-allow yarn",
     "precommit": "lint-staged",
     "prepare": "husky install"
   },
@@ -57,7 +57,7 @@
     "svelte-preprocess": "^4.10.7",
     "typescript": "^4.7.4",
     "vite": "^2.9.13",
-    "vitest": "^0.16.0"
+    "vitest": "^0.17.0"
   },
   "dependencies": {
     "marked": "^4.0.17",
