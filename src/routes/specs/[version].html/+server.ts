@@ -12,7 +12,7 @@ export const GET: RequestHandler = async (req) => {
     / href="..\//,
     ' href="https://github.com/OAI/OpenAPI-Specification/tree/main/'
   );
-  return {
-    body: html,
-  };
+  return new Response(html, {
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
 };

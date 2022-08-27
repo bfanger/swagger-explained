@@ -1,6 +1,3 @@
-import type { JSONValue } from "@sveltejs/kit/types/private";
-
-/* eslint-disable no-use-before-define */
 export type Specification = { [key: string]: JSONValue } & (
   | { openapi: string }
   | { swagger: string }
@@ -19,3 +16,7 @@ export type MappedNode = {
   value?: string | boolean | number;
   nodes?: MappedNode[];
 };
+
+export type JSONValue = string | number | boolean | JSONObject | JSONArray;
+type JSONObject = { [key: string]: JSONValue };
+type JSONArray = JSONValue[];

@@ -2,13 +2,13 @@
   import { getContext } from "svelte";
   import type { Writable } from "svelte/store";
 
-  export let href: string;
+  export let href: string | undefined;
   const id = {};
   const hover = getContext<Writable<any>>("Browse");
   let el: HTMLAnchorElement;
 
   function onMouseover(e: MouseEvent) {
-    let target = e.target as HTMLElement;
+    let target = e.target as HTMLElement | null;
     while (target) {
       if (target.classList.contains("link")) {
         if (el === target) {

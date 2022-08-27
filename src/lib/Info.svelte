@@ -22,14 +22,14 @@
   }
 
   function onClick(event: MouseEvent) {
-    let target = event.target as HTMLElement;
+    let target = event.target as HTMLElement | null;
     if (event.ctrlKey || event.shiftKey || event.metaKey) {
       return;
     }
     while (target) {
       if (target.nodeName === "A") {
         const href = target.getAttribute("href");
-        if (href.match(/^#/)) {
+        if (href?.match(/^#/)) {
           const scrolled = intoView(href);
           if (scrolled) {
             // event.preventDefault();

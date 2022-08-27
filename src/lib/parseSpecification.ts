@@ -1,5 +1,4 @@
-import type { JSONValue } from "@sveltejs/kit/types/private";
-import type { MappedNode, Mapping, Specification } from "./types";
+import type { JSONValue, MappedNode, Mapping, Specification } from "./types";
 
 function createRef(ref: string, part: unknown) {
   const escaped = `${part}`.replace("~", "~0").replace("/", "~1");
@@ -203,10 +202,8 @@ function parseNode(
   data: JSONValue,
   name?: string
 ): MappedNode {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let config = mapping[type];
   if (!config) {
-    // eslint-disable-next-line no-console
     console.warn(`Unexpected type: ${type}`);
     config = {};
   }
@@ -282,7 +279,6 @@ function parseNode(
     }
     return node;
   }
-  // eslint-disable-next-line no-console
   throw new Error(`Parsing ${type} failed for ${ref}`);
 }
 

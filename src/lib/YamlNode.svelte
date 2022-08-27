@@ -11,7 +11,7 @@
   // Note: The template looks ugly, but thats because the whitespace is important
 </script>
 
-{#each node.nodes as subnode, i}<svelte:component
+{#each node.nodes || [] as subnode, i}<svelte:component
     this={subnode.href ? LinkNode : Slot}
     {...subnode.href ? { href: subnode.href } : {}}
     ><YamlLine
