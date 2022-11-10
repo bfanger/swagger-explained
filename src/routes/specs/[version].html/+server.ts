@@ -2,6 +2,8 @@ import type { RequestHandler } from "@sveltejs/kit";
 import { marked } from "marked";
 import { fetchResponse } from "$lib/fetch";
 
+export const prerender = true;
+
 export const GET: RequestHandler = async (req) => {
   const { version } = req.params;
   const spec = await fetchResponse(

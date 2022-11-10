@@ -8,7 +8,7 @@ export default {
   kit: {
     adapter: adapter(),
     prerender: {
-      default: true,
+      handleMissingId: "ignore",
       entries: [
         "*",
         "/specs/1.2.html",

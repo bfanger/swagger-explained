@@ -1,7 +1,7 @@
-export type Specification = { [key: string]: JSONValue } & (
-  | { openapi: string }
-  | { swagger: string }
-);
+export type Specification = { [key: string]: JSONValue } & {
+  openapi?: string;
+  swagger?: string;
+};
 export type Mapping = {
   href?: string;
   props?: Record<string, string>;

@@ -47,7 +47,7 @@
   $: intoView($hash);
 </script>
 
-<div bind:this={el} class="info" on:click={onClick}>
+<div bind:this={el} class="info" on:click={onClick} on:keypress={undefined}>
   {@html html}
 </div>
 
