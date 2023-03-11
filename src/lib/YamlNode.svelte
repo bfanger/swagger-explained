@@ -8,11 +8,13 @@
   export let indent = 0;
   export let isArrayItem = false;
 
+  const SlotNode = Slot as any;
+
   // Note: The template looks ugly, but thats because the whitespace is important
 </script>
 
 {#each node.nodes || [] as subnode, i}<svelte:component
-    this={subnode.href ? LinkNode : Slot}
+    this={subnode.href ? LinkNode : SlotNode}
     {...subnode.href ? { href: subnode.href } : {}}
     ><YamlLine
       spaces={isArrayItem && i == 0 ? 0 : indent * 2}

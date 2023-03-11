@@ -23,4 +23,7 @@
     font: 15px/1.5 "Open Sans", sans-serif;
     height: 100%;
   }
+  svelte-app {
+    display: contents;
+  }
 </style>

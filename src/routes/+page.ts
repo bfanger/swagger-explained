@@ -20,9 +20,13 @@ export const load: PageLoad = async ({ url, fetch }) => {
     specUrl = `https://raw.githubusercontent.com/${match[1]}/${match[2]}`;
     throw redirect(301, `${pathname}?url=${encodeURIComponent(specUrl)}`);
   }
-  const spec = await fetchData<{ [key: string]: JSONValue }>(
-    specUrl || fallbackUrl
-  );
+  let spec: { [key: string]: JSONValue };
+  try {
+    spec = await fetchData(specUrl || fallbackUrl);
+  } catch (err) {
+    console.error(err);
+    throw error(502, `Unable to fetch: ${specUrl}`);
+  }
   const version = spec.openapi || spec.swagger;
   if (!version) {
     throw error(400, "unknown version");
