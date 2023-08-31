@@ -8,7 +8,5 @@ function getHash() {
   return window.location.hash;
 }
 
-const hash = derived(navigating, () => {
-  return getHash();
-});
+const hash = derived(navigating, () => getHash());
 export default hash;

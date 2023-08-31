@@ -7,7 +7,7 @@ describe("parseSpecification", () => {
     openapi: "3.0.0",
     info: { version: "1.0.0", title: "Example api" },
   };
-  it("should", () => {
+  it("should parse the example without errors", () => {
     const tree = parseSpecification(example);
     expect(tree.type).toBe("OPENAPI");
     expect(tree.nodes?.[0]).toEqual({

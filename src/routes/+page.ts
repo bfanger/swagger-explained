@@ -12,7 +12,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
     specUrl = url.searchParams.get("url") || "";
   }
   const match = specUrl.match(
-    /^https:\/\/github.com\/([^/]+\/[^/]+)\/blob\/(.+)$/
+    /^https:\/\/github.com\/([^/]+\/[^/]+)\/blob\/(.+)$/,
   );
   if (match) {
     const pathname =

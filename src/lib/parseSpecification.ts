@@ -200,7 +200,7 @@ function parseNode(
   ref: string,
   type: MappedNode["type"],
   data: JSONValue,
-  name?: string
+  name?: string,
 ): MappedNode {
   let config = mapping[type];
   if (!config) {
@@ -229,7 +229,7 @@ function parseNode(
       node.nodes = node.nodes || [];
       if (config.props[key]) {
         node.nodes.push(
-          parseNode(createRef(ref, key), config.props[key], value, key)
+          parseNode(createRef(ref, key), config.props[key], value, key),
         );
       } else if (config.maps[key]) {
         const subtype = config.maps[key][0];
@@ -245,8 +245,8 @@ function parseNode(
               createRef(createRef(ref, key), subkey),
               config.maps[key][1],
               subvalue as any,
-              subkey
-            )
+              subkey,
+            ),
           );
         }
         node.nodes.push(map);
@@ -262,8 +262,8 @@ function parseNode(
             parseNode(
               createRef(ref, subvalue),
               config.arrays[key],
-              subvalue as any
-            )
+              subvalue as any,
+            ),
           );
         }
         node.nodes.push(map);

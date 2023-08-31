@@ -47,6 +47,7 @@
   $: intoView($hash);
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div bind:this={el} class="info" on:click={onClick} on:keypress={undefined}>
   {@html html}
 </div>

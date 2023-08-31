@@ -20,7 +20,9 @@
   body {
     margin: 0;
     padding: 0;
-    font: 15px/1.5 "Open Sans", sans-serif;
+    font:
+      15px/1.5 "Open Sans",
+      sans-serif;
     height: 100%;
   }
   svelte-app {

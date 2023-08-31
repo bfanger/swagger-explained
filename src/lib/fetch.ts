@@ -2,7 +2,7 @@ import { parse } from "yaml";
 
 export type Fetch = (
   info: RequestInfo,
-  init?: RequestInit
+  init?: RequestInit,
 ) => Promise<Response>;
 
 type FetchOptions = RequestInit & {
@@ -11,7 +11,7 @@ type FetchOptions = RequestInit & {
 
 export async function fetchResponse(
   info: RequestInfo,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<Response> {
   const fetch: Fetch = options.fetch || globalThis.fetch;
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -26,7 +26,7 @@ export async function fetchResponse(
 
 export async function fetchJson<T = unknown>(
   info: RequestInfo,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<T> {
   const response = await fetchResponse(info, options);
   return response.json();
@@ -34,7 +34,7 @@ export async function fetchJson<T = unknown>(
 
 export async function fetchYaml(
   info: RequestInfo,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<unknown> {
   const response = await fetchResponse(info, options);
   return parse(await response.text());
@@ -42,7 +42,7 @@ export async function fetchYaml(
 
 export async function fetchData<T = unknown>(
   info: RequestInfo,
-  options: FetchOptions = {}
+  options: FetchOptions = {},
 ): Promise<T> {
   const url = typeof info === "string" ? (info as string) : info.url;
   const match = url.match(/[^./].([^.]+)$/);

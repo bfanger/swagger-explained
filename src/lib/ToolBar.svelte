@@ -14,7 +14,7 @@
       goto(
         location.pathname +
           "?url=" +
-          window.encodeURIComponent(query.get("url") || "")
+          window.encodeURIComponent(query.get("url") || ""),
       );
     }
   });

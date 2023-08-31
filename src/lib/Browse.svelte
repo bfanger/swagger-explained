@@ -31,8 +31,13 @@
     overflow: scroll;
     color: #ccc;
     background: #2d2d2d;
-    font: 11px / normal "Monaco", "Menlo", "Ubuntu Mono", "Consolas",
-      "source-code-pro", monospace;
+    font:
+      11px / normal "Monaco",
+      "Menlo",
+      "Ubuntu Mono",
+      "Consolas",
+      "source-code-pro",
+      monospace;
     white-space: nowrap;
   }
 </style>
