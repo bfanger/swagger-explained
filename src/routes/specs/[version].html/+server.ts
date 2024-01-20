@@ -9,7 +9,7 @@ export const GET: RequestHandler = async (req) => {
   const spec = await fetchResponse(
     `https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/versions/${version}.md`,
   );
-  let html = marked(await spec.text());
+  let html = await marked(await spec.text());
   html = html.replace(
     / href="..\//,
     ' href="https://github.com/OAI/OpenAPI-Specification/tree/main/',

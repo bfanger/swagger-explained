@@ -1,2 +1,3 @@
 /build
 /.svelte-kit
+/pnpm-lock.yaml
