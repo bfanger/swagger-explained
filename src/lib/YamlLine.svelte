@@ -5,26 +5,26 @@
   export let name: string | undefined;
   export let value: MappedNode["value"] = undefined;
 
-  function formatValue(value: MappedNode["value"]) {
-    if (typeof value !== "string") {
-      return value;
+  function formatValue(val: MappedNode["value"]) {
+    if (typeof val !== "string") {
+      return val;
     }
-    if (/[#]/.test(value) && /[']/.test(value) === false) {
-      return "'" + value + "'";
+    if (/[#]/.test(val) && /[']/.test(val) === false) {
+      return `'${val}'`;
     }
-    if (/^[0-9]+(\.[0-9]+)?$/.test(value) || value === "object") {
-      return '"' + value + '"';
+    if (/^[0-9]+(\.[0-9]+)?$/.test(val) || val === "object") {
+      return `"${val}"`;
     }
-    return value;
+    return val;
   }
   function looksNumeric(s: string) {
     return /^[0-9]+(\.[0-9]+)?$/.test(s);
   }
-  function formatName(name: string) {
-    if (looksNumeric(name)) {
-      return '"' + name + '"';
+  function formatName(val: string) {
+    if (looksNumeric(val)) {
+      return `"${val}"`;
     }
-    return name;
+    return val;
   }
   // Note: The template looks ugly, but thats because the whitespace is important
 </script>
@@ -44,18 +44,23 @@
   .name {
     color: #f2777a;
   }
+
   .double-colon {
     color: #bd8fbd;
   }
+
   .dash {
     color: #ccc;
   }
+
   .string {
     color: #96c896;
   }
+
   .boolean {
     color: #f08d55;
   }
+
   .number {
     color: #f08d55;
   }

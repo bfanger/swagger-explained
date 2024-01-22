@@ -1,8 +1,9 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import type { UserConfig } from "vite";
+import { configDefaults, defineConfig } from "vitest/config";
 
-const config: UserConfig = {
+export default defineConfig({
   plugins: [sveltekit()],
-};
-
-export default config;
+  test: {
+    exclude: [...configDefaults.exclude, "package", "playwright"],
+  },
+});

@@ -22,7 +22,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
   }
   let spec: { [key: string]: JSONValue };
   try {
-    spec = await fetchData(specUrl || fallbackUrl);
+    spec = await fetchData(specUrl || fallbackUrl, { fetch });
   } catch (err) {
     console.error(err);
     error(502, `Unable to fetch: ${specUrl}`);

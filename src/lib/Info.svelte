@@ -12,7 +12,7 @@
     }
     let target = el.querySelector(selector);
     if (!target) {
-      target = el.querySelector("a[name=" + selector.substring(1) + "]");
+      target = el.querySelector(`a[name=${selector.substring(1)}]`);
     }
     if (target) {
       target.scrollIntoView();
@@ -49,82 +49,104 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div bind:this={el} class="info" on:click={onClick} on:keypress={undefined}>
+  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html html}
 </div>
 
 <style lang="scss">
   .info {
-    color: #212529;
     padding: 0 2rem;
     font-size: 1.3rem;
+    color: #212529;
     %heading {
       margin-top: 1rem;
       margin-bottom: 0.5rem;
+
       font-size: 1.9rem;
       font-weight: 500;
       line-height: 1.5;
     }
+
     :global(h1) {
       @extend %heading;
+
       font-size: 2.6rem;
     }
+
     :global(h2) {
       @extend %heading;
+
       font-size: 2.2rem;
-      // line-height: 2.1975rem;
     }
+
     :global(h3) {
       @extend %heading;
+
       font-size: 1.9rem;
     }
+
     :global(h4) {
       @extend %heading;
+
       font-size: 1.7rem;
     }
+
     :global(h5) {
       @extend %heading;
+
       font-size: 1.7rem;
     }
+
     :global(h6) {
       @extend %heading;
+
       font-size: 1.5rem;
     }
+
     :global(a) {
-      text-decoration: none;
       color: #3489d1;
+      text-decoration: none;
+
       &:hover {
-        text-decoration: underline;
         color: #1a5d97;
+        text-decoration: underline;
       }
     }
+
     :global(table) {
       border-collapse: collapse;
       margin-top: 20px;
       border: 1px solid #eaebec;
     }
+
     :global(th) {
-      border-left: 1px solid #f7f8f8;
       padding: 10px;
       background-color: #eaebec;
+      border-left: 1px solid #f7f8f8;
     }
+
     :global(tr) {
       border-top: 1px solid #eaebec;
     }
+
     :global(td) {
-      border-left: 1px solid #eaebec;
       padding: 10px;
+      border-left: 1px solid #eaebec;
     }
 
     :global(pre) {
+      overflow: scroll;
+      display: block;
+
+      padding: 10px;
+
+      font-size: 14px;
+      color: #292929;
+      white-space: pre;
+
+      background-color: #f2f2f2;
       border: 1px solid #e3e3e3;
       border-radius: 6px;
-      font-size: 14px;
-      display: block;
-      padding: 10px;
-      background-color: #f2f2f2;
-      white-space: pre;
-      overflow: scroll;
-      color: #292929;
     }
   }
 </style>

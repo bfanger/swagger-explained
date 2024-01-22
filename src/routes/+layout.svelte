@@ -12,20 +12,22 @@
   />
 </svelte:head>
 
-<style global>
-  html {
-    font-size: 10px;
+<style>
+  :global(html) {
     height: 100%;
+    font-size: 10px;
   }
-  body {
+
+  :global(body) {
+    height: 100%;
     margin: 0;
     padding: 0;
     font:
       15px/1.5 "Open Sans",
       sans-serif;
-    height: 100%;
   }
-  svelte-app {
+
+  :global(svelte-app) {
     display: contents;
   }
 </style>

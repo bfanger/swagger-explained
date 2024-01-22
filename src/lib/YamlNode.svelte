@@ -17,12 +17,12 @@
     this={subnode.href ? LinkNode : SlotNode}
     {...subnode.href ? { href: subnode.href } : {}}
     ><YamlLine
-      spaces={isArrayItem && i == 0 ? 0 : indent * 2}
+      spaces={isArrayItem && i === 0 ? 0 : indent * 2}
       name={subnode.name}
       value={subnode.value}
     />{#if subnode.nodes}{#if subnode.name}<br />{/if}<svelte:self
         node={subnode}
         indent={indent + 1}
-        isArrayItem={typeof subnode.name == "undefined"}
+        isArrayItem={typeof subnode.name === "undefined"}
       />{:else}<br />{/if}</svelte:component
   >{/each}

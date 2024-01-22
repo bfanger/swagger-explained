@@ -20,7 +20,7 @@
     }
   }
   function onMouseleave() {
-    if ($hover == id) {
+    if ($hover === id) {
       hover.set(undefined);
     }
   }
@@ -44,30 +44,42 @@
 <style lang="scss">
   .link {
     display: block;
-    text-decoration: none;
-    outline: 1px solid rgba(#eee, 0.05);
+
     width: 100%;
     min-width: max-content;
+
+    text-decoration: none;
+
+    outline: 1px solid rgba(#eee, 0.05);
   }
+
   .title {
-    position: absolute;
-    right: -4px;
-    z-index: 1;
     pointer-events: none;
-    background-color: rgba(#eee, 0.8);
-    color: black;
-    padding: 1px 6px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+
+    position: absolute;
+    z-index: 1;
+    right: -4px;
+
     display: none;
+
+    padding: 1px 6px;
+
     font-size: 10px;
+    color: black;
+
+    background-color: rgba(#eee, 0.8);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
   }
+
   .hover,
   :focus {
     outline-color: rgba(#eee, 0.8);
+
     :global(.link) {
       outline-color: rgba(#eee, 0.15);
     }
+
     > .title {
       display: block;
     }

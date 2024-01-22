@@ -12,16 +12,20 @@
     display: flex;
     height: 100%;
   }
+
   .master {
     flex-basis: 25%;
-    border-right: 1px solid #b1b1b1;
+
     width: 25%;
     min-width: 35rem;
     height: 100%;
+
+    border-right: 1px solid #b1b1b1;
   }
+
   .detail {
+    overflow-y: scroll;
     width: 75%;
     height: 100%;
-    overflow-y: scroll;
   }
 </style>

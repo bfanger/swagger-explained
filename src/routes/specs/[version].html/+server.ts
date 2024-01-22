@@ -8,6 +8,7 @@ export const GET: RequestHandler = async (req) => {
   const { version } = req.params;
   const spec = await fetchResponse(
     `https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/versions/${version}.md`,
+    { fetch },
   );
   let html = await marked(await spec.text());
   html = html.replace(

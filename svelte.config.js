@@ -1,10 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import preprocess from "svelte-preprocess";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import adapter from "@sveltejs/adapter-static";
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
-  preprocess: preprocess(),
+  preprocess: vitePreprocess(),
   kit: {
     adapter: adapter(),
     prerender: {
