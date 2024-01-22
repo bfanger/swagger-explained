@@ -34,6 +34,9 @@
       "prettier --check"
     ]
   },
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "@playwright/test": "^1.41.0",
     "@sveltejs/adapter-static": "^3.0.1",
