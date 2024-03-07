@@ -11,13 +11,25 @@
     if (!el || !selector) {
       return false;
     }
-    let target = el.querySelector(selector);
+    let target: Element | null | undefined = el.querySelector(selector);
     if (!target) {
       target = el.querySelector(`a[name=${selector.substring(1)}]`);
     }
     if (target) {
       target.scrollIntoView();
       return true;
+    }
+    for (const tag of ["h1", "h2", "h3", "h4", "h5"]) {
+      const headings = Array.from(el.querySelectorAll(tag));
+      target = headings.find(
+        (heading) =>
+          heading.textContent?.toLowerCase().replaceAll(" ", "-") ===
+          selector.substring(1),
+      );
+      if (target) {
+        target.scrollIntoView();
+        return true;
+      }
     }
     return false;
   }

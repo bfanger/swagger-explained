@@ -8,7 +8,7 @@ function createRef(ref: string, part: unknown) {
 const openapi: Record<string, Mapping> = {
   // v3.x
   OPENAPI: {
-    href: "#oasObject",
+    href: "#oas-object",
     props: {
       info: "OA_INFO",
       parameters: "OA_PARAMS",
@@ -22,18 +22,18 @@ const openapi: Record<string, Mapping> = {
     },
   },
   OA_INFO: {
-    href: "#infoObject",
+    href: "#info-object",
     props: { contact: "OA_CONTACT", license: "OA_LICENSE" },
   },
-  OA_CONTACT: { href: "#contactObject" },
-  OA_LICENSE: { href: "#licenseObject" },
+  OA_CONTACT: { href: "#contact-object" },
+  OA_LICENSE: { href: "#license-object" },
   OA_SERVER: {
-    href: "#serverObject",
+    href: "#server-object",
     maps: { variables: ["MAP", "OA_SERVER_VAR"] },
   },
-  OA_SERVER_VAR: { href: "#serverVariableObject" },
+  OA_SERVER_VAR: { href: "#server-variable-object" },
   OA_COMPONENTS: {
-    href: "#componentsObject",
+    href: "#components-object",
     maps: {
       schemas: ["MAP", "OA_SCHEMA"],
       responses: ["MAP", "OA_RESPONSE"],
@@ -46,9 +46,9 @@ const openapi: Record<string, Mapping> = {
       callbacks: ["MAP", "OA_CALLBACK"],
     },
   },
-  OA_PATHS: { href: "#pathsObject" },
+  OA_PATHS: { href: "#paths-object" },
   OA_PATH: {
-    href: "#pathItemObject",
+    href: "#path-item-object",
     props: {
       get: "OA_OPERATION",
       put: "OA_OPERATION",
@@ -62,7 +62,7 @@ const openapi: Record<string, Mapping> = {
     arrays: { servers: "OA_SERVER", parameters: "OA_PARAM" },
   },
   OA_OPERATION: {
-    href: "#operationObject",
+    href: "#operation-object",
     props: {
       externalDocs: "OA_EXTERNAL_DOCS",
       requestBody: "OA_REQUEST_BODY",
@@ -73,51 +73,51 @@ const openapi: Record<string, Mapping> = {
     },
     arrays: {
       parameters: "OA_PARAM",
-      security: "securityRequirementObject",
+      security: "OA_SECURITY_REQUIREMENT",
       servers: "OA_SERVER",
     },
   },
-  OA_EXTERNAL_DOCS: { href: "#externalDocumentationObject" },
-  OA_PARAMS: { href: "#parameterDefinitionsObject" },
+  OA_EXTERNAL_DOCS: { href: "#external-documentation-object" },
+  OA_PARAMS: { href: "#parameter-definitions-object" },
   OA_PARAM: {
-    href: "#parameterObject",
+    href: "#parameter-object",
     props: {
       schema: "OA_SCHEMA",
     },
     maps: { examples: ["MAP", "OA_EXAMPLE"] },
   },
-  OA_REQUEST_BODY: { href: "#requestBodyObject" },
+  OA_REQUEST_BODY: { href: "#request-body-object" },
   OA_MEDIA_TYPE: {
-    href: "#mediaTypeObject",
+    href: "#media-type-object",
     props: { schema: "OA_SCHEMA" },
     maps: {
       examples: ["MAP", "OA_EXAMPLE"],
       encoding: ["MAP", "OA_ENCODING"],
     },
   },
-  OA_ENCODING: { href: "#encodingObject" },
-  OA_RESPONSES: { href: "#responsesObject" },
+  OA_ENCODING: { href: "#encoding-object" },
+  OA_RESPONSES: { href: "#responses-object" },
   OA_RESPONSE: {
-    href: "#responseObject",
+    href: "#response-object",
     maps: {
       headers: ["MAP", "OA_HEADER"],
       content: ["MAP", "OA_MEDIA_TYPE"],
       links: ["MAP", "OA_LINK"],
     },
   },
-  OA_CALLBACK: { href: "#callbackObject" },
-  OA_EXAMPLE: { href: "#exampleObject" },
-  OA_LINK: { href: "#linkObject" },
+  OA_CALLBACK: { href: "#callback-object" },
+  OA_EXAMPLE: { href: "#example-object" },
+  OA_LINK: { href: "#link-object" },
   OA_HEADER: {
-    href: "#headerObject",
+    href: "#header-object",
     props: {
       schema: "OA_SCHEMA",
     },
-    maps: { examples: ["MAP", "exampleObject"] },
+    maps: { examples: ["MAP", "OA_EXAMPLE"] },
   },
-  OA_TAG: { href: "#tagObject" },
+  OA_TAG: { href: "#tag-object" },
   OA_SCHEMA: {
-    href: "#schemaObject",
+    href: "#schema-object",
     props: { items: "OA_SCHEMA" },
     maps: {
       properties: ["MAP", "OA_SCHEMA"],
@@ -127,14 +127,14 @@ const openapi: Record<string, Mapping> = {
       allOf: "OA_SCHEMA",
     },
   },
-  OA_SECURITY_SCHEME: { href: "#securitySchemeObject" },
-  OA_SECURITY_REQUIREMENT: { href: "#securityRequirementObject" },
+  OA_SECURITY_SCHEME: { href: "#security-scheme-object" },
+  OA_SECURITY_REQUIREMENT: { href: "#security-requirement-object" },
 };
 
 // Swagger 2.0
 const swagger: Record<string, Mapping> = {
   SWAGGER: {
-    href: "#swaggerObject",
+    href: "#swagger-object",
     props: { info: "SWG_INFO" },
     maps: {
       paths: ["SWG_PATHS", "SWG_PATH"],
@@ -146,16 +146,16 @@ const swagger: Record<string, Mapping> = {
   },
   SWG_INFO: { ...openapi.OA_INFO },
   SWG_SCHEMA: {
-    href: "#schemaObject",
+    href: "#schema-object",
     props: { items: "SWG_SCHEMA" },
     maps: {
       properties: ["MAP", "SWG_SCHEMA"],
     },
   },
-  SWG_DEFINITIONS: { href: "#definitionsObject" },
-  SWG_PATHS: { href: "#pathsObject" },
+  SWG_DEFINITIONS: { href: "#definitions-object" },
+  SWG_PATHS: { href: "#paths-object" },
   SWG_PATH: {
-    href: "#pathItemObject",
+    href: "#path-item-object",
     props: {
       get: "SWG_OPERATION",
       put: "SWG_OPERATION",
@@ -167,30 +167,30 @@ const swagger: Record<string, Mapping> = {
     },
   },
   SWG_OPERATION: {
-    href: "#operationObject",
+    href: "#operation-object",
     arrays: { parameters: "SWG_PARAM" },
     maps: {
       responses: ["SWG_RESPONSES", "SWG_RESPONSE"],
     },
   },
-  SWG_PARAM: { href: "#parameterObject" },
-  SWG_HEADERS: { href: "#headersObject" },
+  SWG_PARAM: { href: "#parameter-object" },
+  SWG_HEADERS: { href: "#headers-object" },
   SWG_RESPONSE: {
-    href: "#responseObject",
+    href: "#response-object",
     props: { schema: "SWG_SCHEMA" },
     maps: {
       headers: ["SWG_HEADERS", "SWG_HEADER"],
     },
   },
-  SWG_HEADER: { href: "#headerObject" },
-  SWG_RESPONSES: { href: "#responsesObject" },
-  SWG_TAG: { href: "#tagObject" },
+  SWG_HEADER: { href: "#header-object" },
+  SWG_RESPONSES: { href: "#responses-object" },
+  SWG_TAG: { href: "#tag-object" },
 };
 const mapping: Record<string, Mapping> = {
   // Internal
   MAP: {},
   ARRAY: {},
-  REF: { href: "#referenceObject" },
+  REF: { href: "#reference-object" },
   // Swagger
   ...swagger,
   // OpenAPI
