@@ -7,6 +7,7 @@
   let el: HTMLDivElement;
 
   function intoView(selector: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!el || !selector) {
       return false;
     }

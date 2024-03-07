@@ -13,7 +13,7 @@
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("url") && url === "") {
-      goto(`?url=${window.encodeURIComponent(query.get("url") || "")}`);
+      await goto(`?url=${window.encodeURIComponent(query.get("url") || "")}`);
     }
   });
   async function onSubmit() {

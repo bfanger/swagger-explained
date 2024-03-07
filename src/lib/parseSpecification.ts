@@ -203,6 +203,7 @@ function parseNode(
   name?: string,
 ): MappedNode {
   let config = mapping[type];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!config) {
     console.warn(`Unexpected type: ${type}`);
     config = {};
@@ -212,14 +213,6 @@ function parseNode(
   config.arrays = config.arrays || {};
 
   if (typeof data === "object") {
-    // if (Object.keys(data).length === 1 && (<any>data).$ref) {
-    //   return {
-    //     type,
-    //     name,
-    //     href: mapping.REF.href,
-    //     nodes: [{ type: "VALUE", name: "$ref", value: (<any>data).$ref }],
-    //   };
-    // }
     const node: MappedNode = { type, href: config.href, name, nodes: [] };
     for (let key of Object.keys(data as any)) {
       const value = (data as any)[key];
@@ -231,10 +224,12 @@ function parseNode(
         node.nodes.push(
           parseNode(createRef(ref, key), config.props[key], value, key),
         );
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (config.maps[key]) {
         const subtype = config.maps[key][0];
         const map: MappedNode = {
           type: subtype,
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           href: mapping[subtype] ? mapping[subtype].href : undefined,
           name: key,
         };

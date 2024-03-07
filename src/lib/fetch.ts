@@ -1,9 +1,6 @@
 import { parse } from "yaml";
 
-export type Fetch = (
-  info: RequestInfo,
-  init?: RequestInit,
-) => Promise<Response>;
+type Fetch = typeof fetch;
 
 type FetchOptions = RequestInit & {
   fetch?: Fetch;
@@ -12,7 +9,7 @@ type FetchOptions = RequestInit & {
 export async function fetchResponse(
   info: RequestInfo,
   options: FetchOptions = {},
-): Promise<Response> {
+) {
   const fetch: Fetch = options.fetch || globalThis.fetch;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { fetch: _, ...fetchOptions } = options;
@@ -27,17 +24,15 @@ export async function fetchResponse(
 export async function fetchJson<T = unknown>(
   info: RequestInfo,
   options: FetchOptions = {},
-): Promise<T> {
+) {
   const response = await fetchResponse(info, options);
-  return response.json();
+  const json = await response.json();
+  return json as T;
 }
 
-export async function fetchYaml(
-  info: RequestInfo,
-  options: FetchOptions = {},
-): Promise<unknown> {
+export async function fetchYaml(info: RequestInfo, options: FetchOptions = {}) {
   const response = await fetchResponse(info, options);
-  return parse(await response.text());
+  return parse(await response.text()) as unknown;
 }
 
 export async function fetchData<T = unknown>(
@@ -64,10 +59,11 @@ export async function fetchData<T = unknown>(
     type = "JSON";
   }
   if (type === "YAML") {
-    return parse(await response.text());
+    return parse(await response.text()) as T;
   }
   if (type === "JSON") {
-    return response.json();
+    const json = await response.json();
+    return json as T;
   }
   throw new Error(`Unsupported Content-Type: ${contentType}`);
 }
