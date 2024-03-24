@@ -24,7 +24,6 @@
           <Browse spec={data.spec} />
         {/if}
       </svelte:fragment>
-
       <Info html={data.html} />
       <slot />
     </MasterDetail>

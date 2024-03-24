@@ -5,15 +5,14 @@ test("petstore", async ({ page }) => {
     waitUntil: "networkidle",
   });
   expect(response?.status()).toBe(200);
-  await expect(
-    page.getByRole("heading", { name: "Version 2.0" }),
-  ).not.toBeVisible();
+  const swaggerVersion2 = page
+    .getByRole("heading", { name: "Version 2.0" })
+    .first();
+  await expect(swaggerVersion2).not.toBeVisible();
 
   await page
     .locator('input[name="url"]')
     .fill("https://petstore.swagger.io/v2/swagger.json");
   await page.getByRole("button", { name: "Explain" }).click();
-  await expect(
-    page.getByRole("heading", { name: "Version 2.0" }),
-  ).toBeVisible();
+  await expect(swaggerVersion2).toBeVisible();
 });

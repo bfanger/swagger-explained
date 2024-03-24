@@ -1,10 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import "highlight.js/styles/github.min.css";
   import hash from "./store/hash";
 
   export let html: string;
 
-  let el: HTMLDivElement;
+  let el: HTMLDivElement | undefined;
+  $: if (el) {
+    el.innerHTML = html;
+  }
 
   function intoView(selector: string) {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -18,18 +22,6 @@
     if (target) {
       target.scrollIntoView();
       return true;
-    }
-    for (const tag of ["h1", "h2", "h3", "h4", "h5"]) {
-      const headings = Array.from(el.querySelectorAll(tag));
-      target = headings.find(
-        (heading) =>
-          heading.textContent?.toLowerCase().replaceAll(" ", "-") ===
-          selector.substring(1),
-      );
-      if (target) {
-        target.scrollIntoView();
-        return true;
-      }
     }
     return false;
   }
@@ -54,14 +46,14 @@
     }
   }
   onMount(() => {
-    el.scrollTo(0, 0);
+    el?.scrollTo(0, 0);
     intoView($hash);
   });
   $: intoView($hash);
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div bind:this={el} class="info" on:click={onClick} on:keypress={undefined}>
+<!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+<div bind:this={el} class="info" on:click={onClick}>
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html html}
 </div>
@@ -133,9 +125,13 @@
     }
 
     :global(th) {
-      padding: 10px;
+      padding: 6px 10px;
       background-color: #eaebec;
       border-left: 1px solid #f7f8f8;
+
+      &:not([align]) {
+        text-align: left;
+      }
     }
 
     :global(tr) {
@@ -143,23 +139,73 @@
     }
 
     :global(td) {
-      padding: 10px;
+      padding: 8px;
       border-left: 1px solid #eaebec;
     }
 
+    :global(code) {
+      font: monospace;
+      font-size: 12px;
+    }
+
     :global(pre) {
+      position: relative;
+
       overflow: scroll;
       display: block;
 
-      padding: 10px;
-
-      font-size: 14px;
+      font-size: 12px;
       color: #292929;
       white-space: pre;
 
-      background-color: #f2f2f2;
       border: 1px solid #e3e3e3;
       border-radius: 6px;
+
+      &:not(:has(.hljs)) {
+        display: block;
+        padding: 1em;
+        background: #fdfdfd;
+      }
+
+      &:has(.hljs)::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        padding: 2px 4px;
+
+        font-size: 10px;
+
+        border-bottom-left-radius: 4px;
+      }
+
+      :global(.language-json),
+      :global(.language-js) {
+        background-color: #f8f7fa;
+      }
+
+      &:has(.language-json)::after {
+        content: "JSON";
+        color: #8862ae;
+        background-color: #e1d5ec;
+      }
+
+      &:has(.language-js)::after {
+        content: "JS";
+        color: #8862ae;
+        background-color: #e1d5ec;
+      }
+
+      :global(.language-yaml) {
+        position: relative;
+        background-color: #f9faf9;
+      }
+
+      &:has(.language-yaml)::after {
+        content: "YAML";
+        color: #62a03f;
+        background-color: #dbedd0;
+      }
     }
   }
 </style>
