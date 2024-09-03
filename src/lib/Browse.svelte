@@ -1,10 +1,10 @@
 <script lang="ts">
   import { setContext } from "svelte";
   import { writable } from "svelte/store";
+  import type { Specification } from "./types";
+  import LinkNode from "./LinkNode.svelte";
   import parseSpecification from "./parseSpecification";
   import YamlNode from "./YamlNode.svelte";
-  import LinkNode from "./LinkNode.svelte";
-  import type { Specification } from "./types";
 
   export let spec: Specification;
 

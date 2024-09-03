@@ -1,8 +1,8 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
+import { Marked } from "marked";
 import { gfmHeadingId } from "marked-gfm-heading-id";
+import { markedHighlight } from "marked-highlight";
 import { fetchResponse } from "$lib/fetch";
 
 export const prerender = true;

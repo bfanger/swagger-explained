@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import "highlight.js/styles/github.min.css";
   import hash from "./store/hash";
+
+  import "highlight.js/styles/github.min.css";
 
   export let html: string;
 

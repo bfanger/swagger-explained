@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
-  import logoSrc from "../assets/swagger.svg";
   import { goto } from "$app/navigation";
+  import logoSrc from "../assets/swagger.svg";
 
   export let url: string;
 

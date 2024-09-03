@@ -1,7 +1,7 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { PageLoad } from "./$types";
-import { fetchData, fetchResponse } from "$lib/fetch";
 import type { JSONValue } from "$lib/types";
+import { fetchData, fetchResponse } from "$lib/fetch";
+import type { PageLoad } from "./$types";
 
 const fallbackUrl =
   "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml";

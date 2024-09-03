@@ -1,3 +1,6 @@
+<script lang="ts">
+</script>
+
 <div class="master-detail">
   <div class="master">
     <slot name="master" />

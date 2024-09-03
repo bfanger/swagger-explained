@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import parseSpecification from "./parseSpecification";
+import { describe, expect, it } from "vitest";
 import type { Specification } from "./types";
+import parseSpecification from "./parseSpecification";
 
 describe("parseSpecification", () => {
   const example: Specification = {

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
-  import Info from "$lib/Info.svelte";
   import Browse from "$lib/Browse.svelte";
+  import Info from "$lib/Info.svelte";
   import MasterDetail from "$lib/MasterDetail.svelte";
   import ToolBar from "$lib/ToolBar.svelte";
+  import type { PageData } from "./$types";
 
   export let data: PageData;
 </script>
