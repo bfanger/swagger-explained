@@ -5,27 +5,24 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "build:vite": "vite build",
-    "build:storybook": "storybook build --output-dir build/client/styleguide-storybook",
     "preview": "vite preview",
     "lint": "concurrently -c \"#c596c7\",\"#676778\",\"#4b32c3\",\"#fafafa\" --kill-others-on-fail \"npm:lint:*\"",
-    "lint:prettier": "prettier --check . \"src/**/*.{svelte,ts,scss,css,html}\"",
+    "lint:prettier": "prettier --check .",
     "lint:svelte-check": "svelte-check --fail-on-warnings",
-    "lint:eslint": "eslint --ext=js,ts,svelte --max-warnings=0 src",
-    "lint:stylelint": "stylelint --max-warnings=0 \"src/**/*.{css,scss,svelte}\"",
-    "format": "eslint --ext=js,ts,svelte --fix src && stylelint --fix \"src/**/*.{css,scss,svelte}\" && prettier --write . \"src/**/*.{svelte,ts,scss,css,html}\"",
+    "lint:eslint": "eslint --max-warnings=0",
+    "lint:stylelint": "stylelint --max-warnings=0 \"src/**/*.{css,svelte}\"",
+    "format": "eslint --fix && stylelint --fix \"src/**/*.{css,svelte}\" && prettier --write .",
     "test": "concurrently -c \"#fcc72a\",\"#45ba4b\" --kill-others-on-fail \"npm:test:*\"",
     "test:vitest": "vitest run",
     "test:playwright": "playwright test",
     "vitest:watch": "vitest watch",
     "playwright:ui": "playwright test --ui",
-    "preinstall": "npx only-allow pnpm",
-    "precommit": "lint-staged",
-    "prepare": "husky "
+    "preinstall": "npx -y only-allow pnpm",
+    "prepare": "husky || true"
   },
   "lint-staged": {
     "*.{ts,svelte}": [
-      "svelte-check --fail-on-warnings"
+      "svelte-check --fail-on-warnings --diagnostic-sources \"js,svelte\""
     ],
     "*.{ts,svelte,js,cjs,mjs}": [
       "eslint --max-warnings 0 --no-ignore"
@@ -38,45 +35,51 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "@playwright/test": "^1.46.1",
-    "@sveltejs/adapter-static": "^3.0.4",
-    "@sveltejs/kit": "^2.5.25",
-    "@sveltejs/vite-plugin-svelte": "^3.1.2",
-    "@typescript-eslint/eslint-plugin": "^8.4.0",
-    "@typescript-eslint/parser": "^8.4.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript": "^18.0.0",
+    "@eslint/js": "^9.11.1",
+    "@playwright/test": "^1.47.2",
+    "@sveltejs/adapter-static": "^3.0.5",
+    "@sveltejs/kit": "^2.6.1",
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.7",
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/node": "^22.7.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-triple": "^1.2.4",
-    "eslint-import-resolver-typescript": "^3.6.3",
-    "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-only-warn": "^1.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-svelte": "^2.43.0",
-    "git-directory-deploy": "^1.5.1",
+    "eslint-plugin-svelte": "^2.44.1",
+    "globals": "^15.9.0",
     "highlight.js": "^11.10.0",
-    "husky": "^9.1.5",
+    "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
+    "marked": "^14.1.2",
     "marked-gfm-heading-id": "^4.1.0",
     "marked-highlight": "^2.1.4",
+    "postcss": "^8.4.47",
     "postcss-html": "^1.7.0",
+    "postcss-preset-env": "^10.0.5",
     "prettier": "^3.3.3",
-    "prettier-plugin-svelte": "^3.2.6",
-    "sass": "^1.77.8",
+    "prettier-plugin-svelte": "^3.2.7",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "sass": "^1.79.4",
     "stylelint": "^16.9.0",
     "stylelint-config-clean-order": "^6.1.0",
+    "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-prettier": "^5.0.2",
-    "svelte": "^4.2.19",
-    "svelte-check": "^4.0.0",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.2",
-    "vitest": "^2.0.5"
+    "svelte": "5.0.0-next.260",
+    "svelte-check": "^4.0.4",
+    "tailwindcss": "^3.4.13",
+    "typescript": "~5.6.2",
+    "typescript-eslint": "^8.7.0",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.1",
+    "yaml": "^2.5.1"
   },
-  "dependencies": {
-    "marked": "^14.1.0",
-    "yaml": "^2.5.0"
+  "pnpm": {
+    "overrides": {
+      "svelte": "$svelte",
+      "eslint": "$eslint"
+    }
   }
 }

@@ -11,7 +11,7 @@ export async function fetchResponse(
   options: FetchOptions = {},
 ) {
   const fetch: Fetch = options.fetch || globalThis.fetch;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   const { fetch: _, ...fetchOptions } = options;
 
   const response = await fetch(info, fetchOptions);
@@ -39,9 +39,9 @@ export async function fetchData<T = unknown>(
   info: RequestInfo,
   options: FetchOptions = {},
 ): Promise<T> {
-  const url = typeof info === "string" ? (info as string) : info.url;
+  const url = typeof info === "string" ? info : info.url;
   const match = url.match(/[^./].([^.]+)$/);
-  const ext = match && match[1].toLowerCase();
+  const ext = match?.[1] !== undefined && match[1].toLowerCase();
   const response = await fetchResponse(info, options);
   const contentType = response.headers.get("Content-Type")?.split(";")[0] ?? "";
   let type = "AUTO";

@@ -1,7 +1,7 @@
 import type { JSONValue, MappedNode, Mapping, Specification } from "./types";
 
 function createRef(ref: string, part: unknown) {
-  const escaped = `${part}`.replace("~", "~0").replace("/", "~1");
+  const escaped = `${part as string}`.replace("~", "~0").replace("/", "~1");
   return `${ref}/${escaped}`;
 }
 
@@ -203,7 +203,7 @@ function parseNode(
   name?: string,
 ): MappedNode {
   let config = mapping[type];
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
   if (!config) {
     console.warn(`Unexpected type: ${type}`);
     config = {};
@@ -214,38 +214,40 @@ function parseNode(
 
   if (typeof data === "object") {
     const node: MappedNode = { type, href: config.href, name, nodes: [] };
-    for (let key of Object.keys(data as any)) {
+    for (let key of Object.keys(data)) {
       const value = (data as any)[key];
       if (type === "ARRAY") {
         key = "";
       }
       node.nodes = node.nodes || [];
-      if (config.props[key]) {
+      const prop = config.props[key];
+      const mapTypes = config.maps[key];
+      const configTypes = config.arrays[key];
+      if (prop) {
         node.nodes.push(
-          parseNode(createRef(ref, key), config.props[key], value, key),
+          parseNode(createRef(ref, key), prop, value as JSONValue, key),
         );
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      } else if (config.maps[key]) {
-        const subtype = config.maps[key][0];
+      } else if (mapTypes) {
+        const subtype = mapTypes[0];
         const map: MappedNode = {
           type: subtype,
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
           href: mapping[subtype] ? mapping[subtype].href : undefined,
           name: key,
         };
         map.nodes = [];
-        for (const [subkey, subvalue] of Object.entries(value)) {
+        for (const [subkey, subvalue] of Object.entries(value as JSONValue)) {
           map.nodes.push(
             parseNode(
               createRef(createRef(ref, key), subkey),
-              config.maps[key][1],
-              subvalue as any,
+              mapTypes[1],
+              subvalue as JSONValue,
               subkey,
             ),
           );
         }
         node.nodes.push(map);
-      } else if (config.arrays[key]) {
+      } else if (configTypes) {
         const map: MappedNode = {
           type: "ARRAY",
           name: key,
@@ -256,8 +258,8 @@ function parseNode(
           map.nodes.push(
             parseNode(
               createRef(ref, subvalue),
-              config.arrays[key],
-              subvalue as any,
+              configTypes,
+              subvalue as JSONValue,
             ),
           );
         }
@@ -266,7 +268,9 @@ function parseNode(
         if (Array.isArray(value)) {
           node.nodes.push(parseNode(createRef(ref, key), "ARRAY", value, key));
         } else {
-          node.nodes.push(parseNode(createRef(ref, key), "MAP", value, key));
+          node.nodes.push(
+            parseNode(createRef(ref, key), "MAP", value as JSONValue, key),
+          );
         }
       } else {
         node.nodes.push({ type: "VALUE", name: key, value });
@@ -279,10 +283,10 @@ function parseNode(
 
 export default function parseSpecification(spec: Specification): MappedNode {
   if (spec.openapi) {
-    return parseNode("#", "OPENAPI", spec) as MappedNode;
+    return parseNode("#", "OPENAPI", spec);
   }
   if (spec.swagger) {
-    return parseNode("#", "SWAGGER", spec) as MappedNode;
+    return parseNode("#", "SWAGGER", spec);
   }
   throw new Error("Unsupported spec");
 }

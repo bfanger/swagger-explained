@@ -1,9 +1,9 @@
-/** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }) {
-  const response = await resolve(event, {
-    filterSerializedResponseHeaders: (name) =>
-      name.includes("content-type") as boolean,
+import type { Handle } from "@sveltejs/kit";
+
+export const handle: Handle = async (input) => {
+  const response = await input.resolve(input.event, {
+    filterSerializedResponseHeaders: (name) => name.includes("content-type"),
   });
 
-  return response as Response;
-}
+  return response;
+};

@@ -31,7 +31,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
   if (!version) {
     error(400, "unknown version");
   }
-  const html = await fetchResponse(`specs/${version}.html`, {
+  const html = await fetchResponse(`specs/${version as string}.html`, {
     fetch,
   });
   return {
