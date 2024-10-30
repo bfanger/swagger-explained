@@ -40,7 +40,7 @@
   </form>
 </header>
 
-<style lang="scss">
+<style>
   header {
     display: flex;
     flex-shrink: 0;

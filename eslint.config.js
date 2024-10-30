@@ -45,7 +45,7 @@ export default ts.config(
       "no-useless-rename": "warn",
       "object-shorthand": "warn",
       "prefer-template": "warn",
-      "svelte/block-lang": ["warn", { script: "ts", style: ["scss", null] }],
+      "svelte/block-lang": ["warn", { script: "ts" }],
       "svelte/no-at-html-tags": "off",
     },
   },

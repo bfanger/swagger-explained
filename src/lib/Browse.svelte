@@ -22,7 +22,7 @@
 
 <slot />
 
-<style lang="scss">
+<style>
   .browse {
     position: relative;
 

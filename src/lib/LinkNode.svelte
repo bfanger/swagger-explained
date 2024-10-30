@@ -41,7 +41,7 @@
   <slot /></a
 >
 
-<style lang="scss">
+<style>
   .link {
     display: block;
 
