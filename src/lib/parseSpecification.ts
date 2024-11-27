@@ -8,7 +8,7 @@ function createRef(ref: string, part: unknown) {
 const openapi: Record<string, Mapping> = {
   // v3.x
   OPENAPI: {
-    href: "#oas-object",
+    href: "#openapi-object",
     props: {
       info: "OA_INFO",
       parameters: "OA_PARAMS",

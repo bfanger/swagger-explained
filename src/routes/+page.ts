@@ -4,7 +4,7 @@ import { fetchData, fetchResponse } from "$lib/fetch";
 import type { PageLoad } from "./$types";
 
 const fallbackUrl =
-  "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml";
+  "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/refs/heads/main/tests/v3.0/pass/petstore.yaml";
 
 export const load: PageLoad = async ({ url, fetch }) => {
   let specUrl = "";

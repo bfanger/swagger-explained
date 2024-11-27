@@ -50,7 +50,7 @@
 
     text-decoration: none;
 
-    outline: 1px solid rgba(#eee, 0.05);
+    outline: 1px solid rgb(238 238 238 / 5%);
   }
 
   .title {
@@ -67,17 +67,17 @@
     font-size: 10px;
     color: black;
 
-    background-color: rgba(#eee, 0.8);
+    background-color: #eeec;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
   }
 
   .hover,
   :focus {
-    outline-color: rgba(#eee, 0.8);
+    outline-color: #eeec;
 
     :global(.link) {
-      outline-color: rgba(#eee, 0.15);
+      outline-color: #eeeeee26;
     }
 
     > .title {

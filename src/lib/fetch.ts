@@ -13,7 +13,6 @@ export async function fetchResponse(
   const fetch: Fetch = options.fetch || globalThis.fetch;
 
   const { fetch: _, ...fetchOptions } = options;
-
   const response = await fetch(info, fetchOptions);
   if (response.ok === false) {
     throw new Error("Request failed");
