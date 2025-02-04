@@ -74,12 +74,12 @@
     width: 100%;
     margin: 0;
     padding: 8px 10px;
+    border: 2px solid #62a03f;
+    border-radius: 4px 0 0 4px;
 
     font-size: 15px;
 
     background: #fff;
-    border: 2px solid #62a03f;
-    border-radius: 4px 0 0 4px;
     outline: none;
   }
 
@@ -88,6 +88,8 @@
 
     margin: 0;
     padding: 4px 30px;
+    border: none;
+    border-radius: 0 4px 4px 0;
 
     font-family: sans-serif;
     font-size: 16px;
@@ -95,7 +97,5 @@
     color: #fff;
 
     background: #62a03f;
-    border: none;
-    border-radius: 0 4px 4px 0;
   }
 </style>

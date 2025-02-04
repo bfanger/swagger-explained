@@ -63,13 +63,13 @@
     display: none;
 
     padding: 1px 6px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 
     font-size: 10px;
     color: black;
 
     background-color: #eeec;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
   }
 
   .hover,

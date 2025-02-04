@@ -121,8 +121,8 @@
 
       th {
         padding: 6px 10px;
-        background-color: #eaebec;
         border-left: 1px solid #f7f8f8;
+        background-color: #eaebec;
 
         &:not([align]) {
           text-align: left;
@@ -139,7 +139,7 @@
       }
 
       code {
-        font: monospace;
+        font-family: monospace;
         font-size: 12px;
       }
 
@@ -149,12 +149,12 @@
         overflow: scroll;
         display: block;
 
+        border: 1px solid #e3e3e3;
+        border-radius: 6px;
+
         font-size: 12px;
         color: #292929;
         white-space: pre;
-
-        border: 1px solid #e3e3e3;
-        border-radius: 6px;
 
         &:not(:has(.hljs)) {
           display: block;
@@ -168,10 +168,9 @@
           right: 0;
 
           padding: 2px 4px;
+          border-bottom-left-radius: 4px;
 
           font-size: 10px;
-
-          border-bottom-left-radius: 4px;
         }
 
         .language-json,

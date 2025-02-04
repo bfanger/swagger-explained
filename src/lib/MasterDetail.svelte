@@ -22,7 +22,6 @@
     width: 25%;
     min-width: 35rem;
     height: 100%;
-
     border-right: 1px solid #b1b1b1;
   }
 
