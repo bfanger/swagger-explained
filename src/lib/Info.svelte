@@ -8,6 +8,7 @@
 
   let el: HTMLDivElement | undefined;
   $: if (el) {
+    // eslint-disable-next-line svelte/no-dom-manipulating
     el.innerHTML = html;
   }
 

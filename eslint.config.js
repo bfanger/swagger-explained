@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import "eslint-plugin-only-warn";
 // @ts-ignore
 import js from "@eslint/js";
@@ -7,7 +6,6 @@ import ts from "typescript-eslint";
 import prettier from "eslint-config-prettier";
 import svelte from "eslint-plugin-svelte";
 import globals from "globals";
-import svelteParser from "svelte-eslint-parser";
 
 export default ts.config(
   js.configs.recommended,
@@ -21,7 +19,6 @@ export default ts.config(
       ecmaVersion: 2022,
       sourceType: "module",
       globals: { ...globals.node, ...globals.browser },
-      parser: svelteParser,
       parserOptions: {
         parser: ts.parser,
         extraFileExtensions: [".svelte"],
@@ -47,6 +44,7 @@ export default ts.config(
       "prefer-template": "warn",
       "svelte/block-lang": ["warn", { script: "ts" }],
       "svelte/no-at-html-tags": "off",
+      "svelte/require-each-key": "off",
     },
   },
   {

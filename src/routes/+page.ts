@@ -4,7 +4,7 @@ import { fetchData, fetchResponse } from "$lib/fetch";
 import type { PageLoad } from "./$types";
 
 const fallbackUrl =
-  "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/refs/heads/main/tests/v3.0/pass/petstore.yaml";
+  "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/refs/heads/main/_archive_/schemas/v3.0/pass/petstore.yaml";
 
 export const load: PageLoad = async ({ url, fetch }) => {
   let specUrl = "";
@@ -25,7 +25,7 @@ export const load: PageLoad = async ({ url, fetch }) => {
     spec = await fetchData(specUrl || fallbackUrl, { fetch });
   } catch (err) {
     console.error(err);
-    error(502, `Unable to fetch: ${specUrl}`);
+    error(502, `Unable to fetch: ${specUrl || fallbackUrl}`);
   }
   const version = spec.openapi || spec.swagger;
   if (!version) {
