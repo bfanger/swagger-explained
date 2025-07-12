@@ -15,7 +15,7 @@ const config: PlaywrightTestConfig = {
     port: 5173,
     reuseExistingServer: true,
     command: `${
-      process.platform === "darwin" ? "npm run build:vite && " : ""
+      process.platform === "darwin" ? "npm run build && " : ""
     } npm run preview -- --port 5173`,
   },
   ...(CI
@@ -23,8 +23,7 @@ const config: PlaywrightTestConfig = {
         projects: [
           { name: "Chrome", use: { ...devices["Desktop Chrome"] } },
           { name: "Firefox", use: { ...devices["Desktop Firefox"] } },
-          // "iPhone" instead of "Desktop Safari" to also run the tests on a small screen.
-          { name: "iPhone", use: { ...devices["iPhone 13 Pro"] } },
+          { name: "Safari", use: { ...devices["Desktop Safari"] } },
         ],
       }
     : {}),
