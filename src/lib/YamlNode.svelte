@@ -20,7 +20,8 @@
       spaces={isArrayItem && i === 0 ? 0 : indent * 2}
       name={subnode.name}
       value={subnode.value}
-    />{#if subnode.nodes}{#if subnode.name}<br />{/if}<svelte:self
+    />{#if subnode.nodes}{#if node.type === "ARRAY" && subnode.type === "MAP"}<br
+        />{/if}{#if subnode.name}<br />{/if}<svelte:self
         node={subnode}
         indent={indent + 1}
         isArrayItem={typeof subnode.name === "undefined"}
