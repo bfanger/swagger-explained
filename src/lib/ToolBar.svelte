@@ -1,4 +1,5 @@
 <script lang="ts">
+  /* eslint-disable svelte/no-navigation-without-resolve */
   import { onMount, tick } from "svelte";
   import { goto } from "$app/navigation";
   import logoSrc from "../assets/swagger.svg";

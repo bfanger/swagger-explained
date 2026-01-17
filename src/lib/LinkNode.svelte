@@ -1,4 +1,5 @@
 <script lang="ts">
+  /* eslint-disable svelte/no-navigation-without-resolve */
   import type { Writable } from "svelte/store";
   import { getContext } from "svelte";
 
