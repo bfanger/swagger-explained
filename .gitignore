@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /.svelte-kit
+/.svelte-check
+/.pnpm-store
 /build
 /functions
 /test-results

@@ -8,6 +8,18 @@ import svelte from "eslint-plugin-svelte";
 import globals from "globals";
 
 export default ts.config(
+  {
+    ignores: [
+      ".svelte-kit",
+      ".svelte-check",
+      ".pnpm-store",
+      ".vercel",
+      "build",
+      "node_modules",
+      "package",
+      "vite.config.ts.timestamp-*.mjs",
+    ],
+  },
   js.configs.recommended,
   ...ts.configs.recommendedTypeChecked,
   // @ts-ignore
@@ -67,15 +79,5 @@ export default ts.config(
       // Allow require() in CommonJS modules.
       "@typescript-eslint/no-require-imports": "off",
     },
-  },
-  {
-    ignores: [
-      ".svelte-kit",
-      ".vercel",
-      "build",
-      "node_modules",
-      "package",
-      "vite.config.ts.timestamp-*.mjs",
-    ],
   },
 );

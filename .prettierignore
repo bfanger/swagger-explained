@@ -1,3 +1,4 @@
 /build
 /.svelte-kit
 /pnpm-lock.yaml
+/.pnpm-store
