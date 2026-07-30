@@ -12,6 +12,7 @@
     "lint:eslint": "eslint --max-warnings=0",
     "lint:stylelint": "stylelint --max-warnings=0 \"src/**/*.{css,svelte}\"",
     "format": "eslint --fix && stylelint --fix \"src/**/*.{css,svelte}\" && prettier --write .",
+    "specs-upgrade": "node src/scripts/specs-upgrade.ts",
     "test": "concurrently -c \"#fcc72a\",\"#45ba4b\" --kill-others-on-fail \"npm:test:*\"",
     "test:vitest": "vitest run",
     "test:playwright": "playwright test",

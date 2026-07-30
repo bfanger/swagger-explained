@@ -1,5 +1,6 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import SPECS from "./src/specs.gen.ts";
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -8,16 +9,7 @@ export default {
     adapter: adapter(),
     prerender: {
       handleMissingId: "ignore",
-      entries: [
-        "*",
-        "/specs/1.2.html",
-        "/specs/2.0.html",
-        "/specs/3.0.0.html",
-        "/specs/3.0.1.html",
-        "/specs/3.0.2.html",
-        "/specs/3.0.3.html",
-        "/specs/3.1.0.html",
-      ],
+      entries: ["*", ...SPECS.map((version) => `/specs/${version}.html`)],
     },
   },
 };
