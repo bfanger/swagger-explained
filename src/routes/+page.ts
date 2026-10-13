@@ -1,6 +1,6 @@
 import { error, redirect } from "@sveltejs/kit";
-import type { JSONValue } from "$lib/types";
-import { fetchData, fetchResponse } from "$lib/fetch";
+import type { JSONValue } from "#lib/types.js";
+import { fetchData, fetchResponse } from "#lib/fetch.js";
 import type { PageLoad } from "./$types";
 
 const fallbackUrl =
@@ -27,7 +27,8 @@ export const load: PageLoad = async ({ url, fetch }) => {
     console.error(err);
     error(502, `Unable to fetch: ${specUrl || fallbackUrl}`);
   }
-  const version = spec.openapi || spec.swagger;
+  const specVersionOverride = url.searchParams.get("spec");
+  const version = specVersionOverride || spec.openapi || spec.swagger;
   if (!version) {
     error(400, "unknown version");
   }
